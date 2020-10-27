@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.nagneo.mapper.UserMapper">
+
+	<insert id="insert" parameterType="com.nagneo.vo.UserVO">
+		insert into nagneo_user	values (user_seq.nextval, #{id}, #{pw}, #{phone}, #{nickname})
+	</insert>
+
+	<select id="selectOne" parameterType="com.nagneo.vo.UserVO" resultType="com.nagneo.vo.UserVO">
+		select * from nagneo_user where id = #{id}
+	</select>
+
+</mapper>
