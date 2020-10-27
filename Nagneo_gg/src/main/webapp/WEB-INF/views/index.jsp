@@ -60,6 +60,11 @@ nav a {
 	margin-left: 15px;
 }
 
+table a {
+	text-decoration: none;
+	color: black;
+}
+
 section {
 	display: flex;
 	align-items: center;
@@ -100,7 +105,8 @@ footer {
 <body>
 	<header>
 		<a href="./"><img src="resources/image/logo.png"></a> <input
-			type="button" id="login" value="로그인" onclick="location.href='./login'">
+			type="button" id="login" value="${logChk }"
+			onclick="location.href='./login'">
 	</header>
 	<nav>
 		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
@@ -110,13 +116,35 @@ footer {
 		<form action="search" method="get">
 			<table>
 				<tr>
-					<td><a href="./"><img src="resources/image/index.png"></a></td>
+					<td><table>
+							<tr>
+								<td><a href="./"><img src="resources/image/index.png"></a></td>
+							</tr>
+							<tr>
+								<td><input type="text" name="name"
+									style="width: 420px; height: 22px;" placeholder="리그오브레전드 닉네임"><input
+									type="submit" value="검색"
+									style="border: none; width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer;"></td>
+							</tr>
+							<tr>
+								<td align="center">최근 검색</td>
+							</tr>
+						</table></td>
 				</tr>
 				<tr>
-					<td><input type="text" name="name"
-						style="width: 420px; height: 22px;" placeholder="리그오브레전드 닉네임"><input
-						type="submit" value="검색"
-						style="border: none; width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer;"></td>
+					<td><table>
+							<tr>
+								<hr>
+								<c:forEach var="i" items="${log }">
+									<td align="center"><img
+										src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/profileicon/${i.value }.png"
+										style="width: 20px; height: 20px; border-radius: 3px; border-color: black;"
+										border="1"></td>
+									<td width="70" style="padding-bottom: 9px;"
+										align="left"><a href="search?name=${i.key }">${i.key }</a></td>
+								</c:forEach>
+							</tr>
+						</table></td>
 				</tr>
 			</table>
 		</form>

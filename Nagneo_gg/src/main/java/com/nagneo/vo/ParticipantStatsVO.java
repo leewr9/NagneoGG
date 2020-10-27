@@ -1,21 +1,14 @@
 package com.nagneo.vo;
 
 public class ParticipantStatsVO {
-	private int totalPlayerScore;
 	private int champLevel;
 	private int deaths;
 	private long totalDamageDealtToChampions;
 	private int totalMinionsKilled;
 	private int kills;
 	private int assists;
-	private boolean win;
+	private int neutralMinionsKilled;
 	
-	public int getTotalPlayerScore() {
-		return totalPlayerScore;
-	}
-	public void setTotalPlayerScore(int totalPlayerScore) {
-		this.totalPlayerScore = totalPlayerScore;
-	}
 	public int getChampLevel() {
 		return champLevel;
 	}
@@ -52,10 +45,10 @@ public class ParticipantStatsVO {
 	public void setAssists(int assists) {
 		this.assists = assists;
 	}
-	public boolean isWin() {
-		return win;
+	public int getNeutralMinionsKilled() {
+		return neutralMinionsKilled;
 	}
-	public void setWin(boolean win) {
-		this.win = win;
+	public void setNeutralMinionsKilled(int neutralMinionsKilled) {
+		this.neutralMinionsKilled = neutralMinionsKilled;
 	}
 }

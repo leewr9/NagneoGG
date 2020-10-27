@@ -106,7 +106,7 @@ footer {
 	%>
 	<header>
 		<a href="./"><img src="resources/image/logo.png"></a> <input
-			type="button" id="login" value="로그인"
+			type="button" id="login" value="${logChk }"
 			onclick="location.href='./login'">
 	</header>
 	<nav>
@@ -137,9 +137,11 @@ footer {
 						<c:forEach var="i" items="${arraycmVO }">
 							<tr>
 								<td width="50"><img
-								src="<%=champion %>${i.championName }.png"
-								style="width: 50px; height: 50px; margin-bottom: -5px"></td>
-								<td width="150" align="center" bgcolor="#303030" style="color: white;">레벨${i.championLevel }[숙련도 ${i.championPoints }]</td>
+									src="<%=champion %>${i.championName }.png"
+									style="width: 50px; height: 50px; margin-bottom: -5px"></td>
+								<td width="150" align="center" bgcolor="#303030"
+									style="color: white;">레벨${i.championLevel }[숙련도
+									${i.championPoints }]</td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -175,21 +177,59 @@ footer {
 			<tr>
 				<td colspan="3"><table border=1 cellspacing="0" cellpadding="0"
 						bordercolor="gray" style="border-collapse: collapse">
+						<!--
+						소환사 번호 -> ${suVO.participantId}<br>
+						소환사 팀 -> ${suVO.teamId}<br>
+						소환사 승패 -> ${suVO.win}<br>
+						소환사 챔피언 -> ${suVO.championId }<br>
+						소환사 챔프렙 -> ${suVO.champLevel}<br>
+						킬 -> ${suVO.kills}<br>
+						데스 -> ${suVO.deaths}<br>
+						어시 -> ${suVO.assists}<br>
+						미니언 -> ${suVO.totalMinionsKilled}<br>
+						챔피언 딜량 -> ${suVO.totalDamageDealtToChampions}<br>
+						1번 스펠 -> ${suVO.spell1Id}<br>
+						2번 스펠 -> ${suVO.spell2Id}<br>
+						 -->
+						<%for (int i = 0; i < 10; i++) {%>
 						<tr>
-							<td width="813" height="100">전적</td>
+							<c:forEach var="t" items="${arrayTitle}" begin="<%=i%>" end="<%=i%>">
+							<td>
+							소환사 번호 -> ${t.participantId}<br>
+							소환사 팀 -> ${t.teamId}<br>
+							소환사 승패 -> ${t.win}<br>
+							소환사 챔피언 -> ${t.championId}<br>
+							소환사 챔프렙 -> ${t.champLevel}<br>
+							킬 -> ${t.kills}<br>
+							데스 -> ${t.deaths}<br>
+							어시 -> ${t.assists}<br>
+							미니언 -> ${t.totalMinionsKilled}<br>
+							챔피언 딜량 -> ${t.totalDamageDealtToChampions}<br>
+							1번 스펠 -> ${t.spell1Id}<br>
+							2번 스펠 -> ${t.spell2Id}<br>
+							</td>
+							</c:forEach>
+							<c:forEach var="m" items="${mList}" varStatus="status"	begin="<%=i%>" end="<%=i+1%>">
+									<c:if test="${status.count <= 1}">
+									<td>${m.gameMode}<br></td>				
+										<!-- 챔피언 아이디 / 소환사 이름 시작 -->
+										<c:forEach var="a" items="${m.participants}" varStatus="vs">
+											<c:if test="${(vs.count - 1) % 5 == 0 && vs.count != 10}">
+											<td>
+											</c:if>
+											${a.championId} / ${m.participantIdentities[vs.index].player.summonerName}
+											<br>
+											<c:if test="${vs.count % 5 == 0 && vs.count != 0}">
+											</td>
+											</c:if>
+										</c:forEach>
+										<!-- 챔피언 아이디 / 소환사 이름 끝 -->
+										
+									</c:if>
+									
+							</c:forEach>
 						</tr>
-						<tr>
-							<td height="100">전적</td>
-						</tr>
-						<tr>
-							<td height="100">전적</td>
-						</tr>
-						<tr>
-							<td height="100">전적</td>
-						</tr>
-						<tr>
-							<td height="100">전적</td>
-						</tr>
+						<%} %>
 					</table></td>
 			</tr>
 		</table>

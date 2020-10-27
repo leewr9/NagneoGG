@@ -15,10 +15,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nagneo.vo.MatchVO;
 
 public class ApiBattleInfo {
-	List<MatchVO> mList = new ArrayList<MatchVO>();
-	public List<MatchVO> getUserData(ArrayList<Long> list) {
+	
+	public List<MatchVO> getMatchData(ArrayList<Long> list) {
 		String url = "https://kr.api.riotgames.com/lol/match/v4/matches/";
 		String apiKey = "?api_key="+ApiKey.key;
+		List<MatchVO> mList = new ArrayList<MatchVO>();
 		try {
 			ObjectMapper om = new ObjectMapper();
 			HttpClient hc = HttpClientBuilder.create().build();

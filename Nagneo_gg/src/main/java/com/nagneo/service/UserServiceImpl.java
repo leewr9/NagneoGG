@@ -25,6 +25,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public String find(String idpw, UserVO uVO) {
+		init();
+		if (idpw.equals("id")) {
+			UserVO userVO = uM.idInfo(uVO);
+			return userVO.getId();
+		} else {
+			UserVO userVO = uM.pwInfo(uVO);
+			return userVO.getPw();
+		}
+	}
+
+	@Override
 	public boolean selectOne(UserVO uVO) {
 		init();
 		UserVO userVO = uM.selectOne(uVO);
@@ -40,7 +52,8 @@ public class UserServiceImpl implements UserService {
 	public boolean idChk(UserVO uVO) {
 		init();
 		UserVO userVO = uM.selectOne(uVO);
-		if (userVO == null) return true;
+		if (userVO == null)
+			return true;
 		return false;
 	}
 

@@ -14,11 +14,9 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		// TODO Auto-generated method stub
 		// session 객체를 가져옴
-		System.out.println("preHandle start");
 		HttpSession session = request.getSession();
 		// login처리를 담당하는 사용자 정보를 담고 있는 객체를 가져옴
 		Object obj = session.getAttribute("login");
-		System.out.println("인터셉터 OBJ : " + obj);
 		if (obj == null) {
 			// 로그인이 안되어 있는 상태임으로 로그인 폼으로 다시 돌려보냄(redirect)
 			response.sendRedirect(request.getContextPath() + "/login");
@@ -27,7 +25,6 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
 		// preHandle의 return은 컨트롤러 요청 uri로 가도 되냐 안되냐를 허가하는 의미임
 		// 따라서 true로하면 컨트롤러 uri로 가게 됨.
-		System.out.println("preHandle end");
 		return true;
 
 		// return super.preHandle(request, response, handler);
@@ -38,7 +35,6 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 			ModelAndView modelAndView) throws Exception {
 		// TODO Auto-generated method stub
 		super.postHandle(request, response, handler, modelAndView);
-		System.out.println("postHandle end");
 	}
 
 }

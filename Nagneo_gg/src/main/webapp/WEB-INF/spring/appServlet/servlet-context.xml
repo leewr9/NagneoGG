@@ -30,29 +30,46 @@
 	<beans:bean id="authenticationInterceptor"
 		class="com.nagneo.interceptor.AuthenticationInterceptor">
 	</beans:bean>
+
+	<beans:bean id="searchInterceptor"
+		class="com.nagneo.interceptor.SearchInterceptor">
+	</beans:bean>
+
 	<!-- Interceptor 설정 -->
 	<interceptors>
 		<interceptor>
 			<!-- 파일의 디렉토리가 아닌 컨트롤러를 의미한다. -->
-			<mapping path="/" />
+			<mapping path="board" />
 			<!-- <mapping path="/bbs/**"/> <mapping path="/login/**"/> <mapping path="/board/modify"/> 
 				<mapping path="/board/delete"/> -->
 			<beans:ref bean="authenticationInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/" />
+			<beans:ref bean="searchInterceptor" />
 		</interceptor>
 	</interceptors>
 
 	<beans:bean id="ApiUserInfo"
 		class="com.nagneo.api.ApiUserInfo">
 	</beans:bean>
+	
+	<beans:bean id="ApiBattleInfo"
+		class="com.nagneo.api.ApiBattleInfo">
+	</beans:bean>
+	
+	<beans:bean id="ApiMatchInfo"
+		class="com.nagneo.api.ApiMatchInfo">
+	</beans:bean>
 
 	<beans:bean id="ApiLeagueInfo"
 		class="com.nagneo.api.ApiLeagueInfo">
 	</beans:bean>
-	
+
 	<beans:bean id="ApiChampionInfo"
 		class="com.nagneo.api.ApiChampionInfo">
 	</beans:bean>
-	
+
 	<beans:bean id="ApiMostInfo"
 		class="com.nagneo.api.ApiMostInfo">
 	</beans:bean>

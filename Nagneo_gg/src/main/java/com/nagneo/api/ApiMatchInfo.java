@@ -15,16 +15,16 @@ import com.nagneo.vo.MatchNumVO;
 import com.nagneo.vo.MatchesVO;
 
 public class ApiMatchInfo {
-	private MatchesVO matches = null;
-	private ArrayList<Long> kList = new ArrayList<Long>();
-	
-	public ArrayList<Long> getUserData(String name) {
+
+	public ArrayList<Long> getMatchesData(String id) {
 		String url = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/";
-		String apiKey = "?endIndex=10&beginIndex=0&api_key="+ApiKey.key;
+		String apiKey = "?endIndex=10&beginIndex=0&api_key=" + ApiKey.key;
+		MatchesVO matches = null;
+		ArrayList<Long> kList = new ArrayList<Long>();
 		try {
 			ObjectMapper om = new ObjectMapper();
 			HttpClient hc = HttpClientBuilder.create().build();
-			HttpGet hg = new HttpGet(url + name + apiKey);
+			HttpGet hg = new HttpGet(url + id + apiKey);
 			HttpResponse hr = hc.execute(hg);
 			if (hr.getStatusLine().getStatusCode() == 200) {
 				ResponseHandler<String> h = new BasicResponseHandler();
@@ -36,7 +36,7 @@ public class ApiMatchInfo {
 				}
 			}
 		} catch (Exception e) {
-			
+
 		}
 		System.out.println(kList.size());
 		return kList;

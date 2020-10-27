@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,33 +98,46 @@ a {
 <body>
 	<header>
 		<a href="./"><img src="resources/image/logo.png"></a> <input
-			type="button" id="login" value="로그인" onclick="location.href='./login'">
+			type="button" id="login" value="${logChk }"
+			onclick="location.href='./login'">
 	</header>
 	<nav>
-		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#" onclick="alert('미구현');">챔피언검색</a><a href="2">커뮤니티</a>
+		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
+			onclick="alert('미구현');">챔피언검색</a><a href="2">커뮤니티</a>
 	</nav>
 	<section>
 		<form action="in" method="post">
 			<table>
 				<tr>
-					<td colspan="2"><a href="./"><img src="resources/image/main.png"></a></td>
+					<td colspan="2"><a href="./"><img
+							src="resources/image/main.png"></a></td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="text" name="id"
 						style="width: 400px; height: 30px; font-size: 15px;"
 						placeholder="아이디"></td>
 				</tr>
+				<c:if test="${id ne '아이디'}">
+					<tr>
+						<td>찾으신 아이디는 [ ${id } ]입니다</td>
+					</tr>
+				</c:if>
 				<tr>
 					<td colspan="2"><input type="password" name="pw"
 						style="width: 400px; height: 30px; font-size: 15px;"
 						placeholder="비밀번호"></td>
 				</tr>
+				<c:if test="${pw ne '비밀번호'}">
+					<tr>
+						<td>찾으신 비밀번호는 [ ${pw } ]입니다</td>
+					</tr>
+				</c:if>
 				<tr>
 					<td colspan="2"><input type="submit" value="로그인"
 						style="background-color: #303030; border: none; color: white; width: 407px; height: 35px; font-size: 15px; cursor: pointer;"></td>
 				</tr>
 				<tr>
-					<td><a href="3">아이디/비밀번호찾기</a></td>
+					<td><a href="find">아이디/비밀번호찾기</a></td>
 					<td align="right"><a href="reg">회원가입</a></td>
 				</tr>
 			</table>

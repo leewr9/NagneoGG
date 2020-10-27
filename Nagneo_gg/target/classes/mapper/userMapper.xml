@@ -11,5 +11,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectOne" parameterType="com.nagneo.vo.UserVO" resultType="com.nagneo.vo.UserVO">
 		select * from nagneo_user where id = #{id}
 	</select>
+	
+	<select id="idInfo" parameterType="com.nagneo.vo.UserVO" resultType="com.nagneo.vo.UserVO">
+		select * from nagneo_user where phone = #{phone} and nickname = #{nickname}
+	</select>
+	
+	<select id="pwInfo" parameterType="com.nagneo.vo.UserVO" resultType="com.nagneo.vo.UserVO">
+		select * from nagneo_user where id = #{id} and phone = #{phone}
+	</select>
 
 </mapper>

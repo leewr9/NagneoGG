@@ -120,7 +120,7 @@ table tr td {
 <body>
 	<header>
 		<a href="./"><img src="resources/image/logo.png"></a> <input
-			type="button" id="login" value="로그인"
+			type="button" id="login" value="${logChk }"
 			onclick="location.href='./login'">
 	</header>
 	<nav>

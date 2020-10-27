@@ -89,10 +89,12 @@ table tr td {
 <body>
 	<header>
 		<a href="./"><img src="resources/image/logo.png"></a> <input
-			type="button" id="login" value="로그인" onclick="location.href='./login'">
+			type="button" id="login" value="${logChk }"
+			onclick="location.href='./login'">
 	</header>
 	<nav>
-		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#" onclick="alert('미구현');">챔피언검색</a><a href="2">커뮤니티</a>
+		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
+			onclick="alert('미구현');">챔피언검색</a><a href="2">커뮤니티</a>
 	</nav>
 	<section>
 		<table>
@@ -100,7 +102,7 @@ table tr td {
 				<td><a href="./"><img src="resources/image/main.png"></a></td>
 			</tr>
 			<tr>
-				<td><form name="id_form" action="">
+				<td><form name="id_form" action="info" method="get">
 						<table>
 							<tr>
 								<td><input type="text" name="nickname"
@@ -113,19 +115,20 @@ table tr td {
 									placeholder="핸드폰번호"></td>
 							</tr>
 							<tr>
-								<td><input type="button" value="아이디 찾기" onclick="regex();"
+								<td><input type="hidden" name="idpw" value="id"><input
+									type="submit" value="아이디 찾기"
 									style="background-color: #303030; border: none; color: white; width: 407px; height: 35px; font-size: 15px; cursor: pointer;"></td>
 							</tr>
 						</table>
 					</form></td>
 			</tr>
 			<tr>
-				<td><form name="password_form">
+				<td><form name="password_form" action="info" method="get">
 						<table>
 							<tr>
 								<td><input type="text" name="id"
 									style="width: 400px; height: 30px; font-size: 15px;"
-									placeholder="아이디" onchange="alert('??');"></td>
+									placeholder="아이디"></td>
 							</tr>
 							<tr>
 								<td><input type="text" name="phone"
@@ -133,7 +136,7 @@ table tr td {
 									placeholder="핸드폰번호"></td>
 							</tr>
 							<tr>
-								<td><input type="submit" value="비밀번호 찾기"
+								<td><input type="hidden" name="idpw" value="pw"><input type="submit" value="비밀번호 찾기"
 									style="background-color: #303030; border: none; color: white; width: 407px; height: 35px; font-size: 15px; cursor: pointer;"></td>
 							</tr>
 						</table>

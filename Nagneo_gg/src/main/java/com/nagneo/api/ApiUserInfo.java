@@ -14,11 +14,11 @@ import com.nagneo.vo.SummonerVO;
 
 @Controller
 public class ApiUserInfo {
-	
+
 	public SummonerVO getUserData(String name) {
 		name = name.replaceAll(" ", "%20");
 		String url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/";
-		String apiKey = "?api_key="+ApiKey.key;
+		String apiKey = "?api_key=" + ApiKey.key;
 		SummonerVO sVO = null;
 		try {
 			ObjectMapper om = new ObjectMapper();
@@ -30,6 +30,15 @@ public class ApiUserInfo {
 				String body = h.handleResponse(hr);
 				om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 				sVO = om.readValue(body, SummonerVO.class);
+			} else {
+				if (sVO == null) {
+					SummonerVO temp = new SummonerVO();
+					temp.setId("");
+					temp.setName("존재하지 않는 소환사");
+					temp.setProfileIconId(1);
+					temp.setSummonerLevel(1);
+					sVO = temp;
+				}
 			}
 		} catch (Exception e) {
 		}
