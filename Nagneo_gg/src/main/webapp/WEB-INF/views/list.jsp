@@ -131,7 +131,8 @@ footer {
 						</tr>
 						<tr>
 							<td height="50" bgcolor="#303030" align="center"
-								style="font-size: 20px; color: white;">${sVO.name }[Lv.${sVO.summonerLevel }]</td>
+								style="font-size: 20px; color: white;">${sVO.name }[Lv.
+								${sVO.summonerLevel } ]</td>
 						</tr>
 					</table>
 				</td>
@@ -142,11 +143,11 @@ footer {
 						<c:forEach var="i" items="${arraycmVO }">
 							<tr>
 								<td width="50"><img
-									src="<%=champion %>${i.championName }.png"
+									src="<%=champion %>${i.champion.engid }.png"
 									style="width: 50px; height: 50px; margin-bottom: -5px"></td>
 								<td width="150" align="center" bgcolor="#303030"
-									style="color: white;">레벨${i.championLevel }[숙련도
-									${i.championPoints }]</td>
+									style="color: white;">레벨${i.championLevel }[ 숙련도
+									${i.championPoints } ]</td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -161,7 +162,7 @@ footer {
 								style="width: 80px; height: 91px"></td>
 							<td width="300">&nbsp;${sololVO.queueType }<br>&nbsp;${sololVO.tier }
 								${sololVO.rank } ${sololVO.leaguePoints }포인트<br>&nbsp;${sololVO.wins }승
-								${sololVO.losses }패 [승률 ${sololVO.percentages }%]<input
+								${sololVO.losses }패 [ 승률 ${sololVO.percentages }% ]<input
 								type="button" id="refresh" value="전적갱신"
 								onclick="location.href='search?name=${sVO.name }'"><br></td>
 						</tr>
@@ -171,7 +172,7 @@ footer {
 								style="width: 80px; height: 91px"></td>
 							<td>&nbsp;${freelVO.queueType }<br>&nbsp;${freelVO.tier }
 								${freelVO.rank } ${freelVO.leaguePoints }포인트<br>&nbsp;${freelVO.wins }승
-								${freelVO.losses }패 [승률 ${freelVO.percentages }%]
+								${freelVO.losses }패 [ 승률 ${freelVO.percentages }% ]
 							</td>
 						</tr>
 					</table></td>
@@ -202,13 +203,25 @@ footer {
 						<tr>
 							<c:forEach var="t" items="${arrayTitle}" begin="<%=i%>"
 								end="<%=i%>">
-								<td width="341">소환사 번호 -> ${t.participantId} 소환사 팀 ->
-									${t.teamId} 소환사 승패 -> ${t.win}<br> 소환사 챔피언 ->
-									${t.championId} 소환사 챔프렙 -> ${t.champLevel} 킬 -> ${t.kills}<br>
-									데스 -> ${t.deaths} 어시 -> ${t.assists} 미니언 ->
-									${t.totalMinionsKilled}<br> 챔피언 딜량 ->
-									${t.totalDamageDealtToChampions} 1번 스펠 -> ${t.spell1Id} 2번 스펠
-									-> ${t.spell2Id}<br>
+								<td width="341" align="left">
+									<table>
+										<tr>
+											<td colspan="2" align="center" style="font-size: 25px;">${t.win}</td>
+										</tr>
+										<tr>
+											<td><img src="<%=champion %>${t.champion.engid}.png"
+												style="width: 125px; height: 125px; border-color: black;"
+												border="1"></td>
+											<td width="195"
+												style="font-size: 15px; padding-left: 3px; letter-spacing: -1px;"
+												align="left">${t.champion.korid}[Lv.${t.champLevel}]<br>
+												${t.kills}/${t.deaths}/${t.assists} KDA ${t.kda }<br>CS
+												${t.totalMinionsKilled} <br> 피해량
+												${t.totalDamageDealtToChampions} <br>D ${t.spell1Id} F
+												${t.spell2Id}
+											</td>
+										</tr>
+									</table>
 								</td>
 							</c:forEach>
 							<c:forEach var="m" items="${mList}" varStatus="status"
@@ -222,12 +235,13 @@ footer {
 													</c:if>
 													<tr>
 														<td width="30"><img
-															src="<%=champion %>${a.championName }.png"
-															style="width: 30px; height: 30px; border-radius: 3px; border-color: black;"
-															border="1"> <font style="margin-top: -10px;"></td>
+															src="<%=champion %>${a.champion.engid }.png"
+															style="width: 25px; height: 25px; border-radius: 3px; border-color: black;"
+															border="1"></td>
 														<td align="left" style="padding-bottom: 10px;"><a
-															href="search?name=${m.participantIdentities[vs.index].player.summonerName}">${m.participantIdentities[vs.index].player.summonerName}</a>
-															</font></td>
+															href="search?name=${m.participantIdentities[vs.index].player.summonerName}"
+															style="letter-spacing: -1px;">${m.participantIdentities[vs.index].player.summonerName}</a>
+														</td>
 													</tr>
 													<c:if test="${vs.count % 5 == 0 && vs.count != 0}">
 												</table>

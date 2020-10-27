@@ -6,7 +6,15 @@ public class ParticipantVO {
 	private ParticipantStatsVO stats;
 	private int spell1Id;
 	private int spell2Id;
-	private String championName;
+	private ChampionVO champion;
+
+	public ChampionVO getChampion() {
+		return champion;
+	}
+
+	public void setChampion(ChampionVO champion) {
+		this.champion = champion;
+	}
 
 	public int getSpell1Id() {
 		return spell1Id;
@@ -46,14 +54,6 @@ public class ParticipantVO {
 
 	public void setStats(ParticipantStatsVO stats) {
 		this.stats = stats;
-	}
-
-	public String getChampionName() {
-		return championName;
-	}
-
-	public void setChampionName(String championName) {
-		this.championName = championName;
 	}
 
 }

@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nagneo.api.ApiBattleInfo;
-import com.nagneo.api.ApiChampionInfo;
 import com.nagneo.api.ApiLeagueInfo;
 import com.nagneo.api.ApiMatchInfo;
 import com.nagneo.api.ApiMostInfo;
 import com.nagneo.api.ApiUserInfo;
 import com.nagneo.service.BoardService;
+import com.nagneo.service.ChampionService;
 import com.nagneo.service.UserService;
 import com.nagneo.vo.ChampionMasteryVO;
 import com.nagneo.vo.LeagueEntryVO;
@@ -48,9 +48,6 @@ public class NagneoController {
 	private ApiLeagueInfo league;
 
 	@Autowired
-	private ApiChampionInfo champion;
-
-	@Autowired
 	private ApiMostInfo most;
 
 	@Autowired
@@ -58,6 +55,9 @@ public class NagneoController {
 
 	@Autowired
 	private BoardService b;
+
+	@Autowired
+	private ChampionService c;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -142,7 +142,7 @@ public class NagneoController {
 		ArrayList<LeagueEntryVO> arraylVO = league.getLeagueData(sVO.getId());
 		ArrayList<ChampionMasteryVO> arraycmVO = most.getMostData(sVO.getId());
 		for (ChampionMasteryVO i : arraycmVO) {
-			i.setChampionName(champion.getChampionData(String.valueOf(i.getChampionId())));
+			i.setChampion(c.champion((int) i.getChampionId()));
 		}
 
 		ArrayList<Long> arrayKey = match.getMatchesData(sVO.getAccountId());
@@ -151,7 +151,7 @@ public class NagneoController {
 
 		for (MatchVO i : mList) {
 			for (ParticipantVO j : i.getParticipants()) {
-				j.setChampionName(champion.getChampionData(String.valueOf(j.getChampionId())));
+				j.setChampion(c.champion(j.getChampionId()));
 			}
 		}
 
@@ -166,11 +166,12 @@ public class NagneoController {
 					} else {
 						suVO.setWin(a.getTeams().get(1).getWin());
 					}
-					suVO.setChampionId(a.getParticipants().get(i).getChampionId());
+					suVO.setChampion(c.champion(a.getParticipants().get(i).getChampionId()));
 					suVO.setChampLevel(a.getParticipants().get(i).getStats().getChampLevel());
 					suVO.setKills(a.getParticipants().get(i).getStats().getKills());
 					suVO.setDeaths(a.getParticipants().get(i).getStats().getDeaths());
 					suVO.setAssists(a.getParticipants().get(i).getStats().getAssists());
+					suVO.setKda();
 					suVO.setTotalMinionsKilled(a.getParticipants().get(i).getStats().getTotalMinionsKilled()
 							+ a.getParticipants().get(i).getStats().getNeutralMinionsKilled());
 					suVO.setTotalDamageDealtToChampions(

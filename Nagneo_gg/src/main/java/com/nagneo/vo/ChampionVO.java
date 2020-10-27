@@ -1,22 +1,31 @@
 package com.nagneo.vo;
 
 public class ChampionVO {
-	private String name;
-	private String key;
+	private String engid;
+	private String korid;
+	private int key;
 
-	public String getName() {
-		return name;
+	public String getEngid() {
+		return engid;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setEngid(String engid) {
+		this.engid = engid;
 	}
 
-	public String getKey() {
+	public String getKorid() {
+		return korid;
+	}
+
+	public void setKorid(String korid) {
+		this.korid = korid;
+	}
+
+	public int getKey() {
 		return key;
 	}
 
-	public void setKey(String key) {
+	public void setKey(int key) {
 		this.key = key;
 	}
 

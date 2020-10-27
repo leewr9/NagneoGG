@@ -73,7 +73,7 @@ public class ApiLeagueInfo {
 			return arraylVO;
 		} else {
 			LeagueEntryVO temp = null;
-			
+
 			temp = new LeagueEntryVO();
 			temp.setLeaguePoints(0);
 			temp.setLosses(0);
@@ -83,7 +83,7 @@ public class ApiLeagueInfo {
 			temp.setQueueType("¼Ö·Î ·©Å©");
 			temp.setPercentages();
 			arraylVO.add(temp);
-			
+
 			temp = new LeagueEntryVO();
 			temp.setLeaguePoints(0);
 			temp.setLosses(0);
@@ -97,4 +97,5 @@ public class ApiLeagueInfo {
 			return arraylVO;
 		}
 	}
+
 }

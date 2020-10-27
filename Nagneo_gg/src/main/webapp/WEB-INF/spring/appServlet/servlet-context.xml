@@ -66,10 +66,6 @@
 		class="com.nagneo.api.ApiLeagueInfo">
 	</beans:bean>
 
-	<beans:bean id="ApiChampionInfo"
-		class="com.nagneo.api.ApiChampionInfo">
-	</beans:bean>
-
 	<beans:bean id="ApiMostInfo"
 		class="com.nagneo.api.ApiMostInfo">
 	</beans:bean>
