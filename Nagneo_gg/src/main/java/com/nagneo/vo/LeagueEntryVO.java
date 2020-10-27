@@ -94,5 +94,4 @@ public class LeagueEntryVO {
 			this.queueType = "ÀÚÀ¯ ·©Å©";
 		}
 	}
-
 }
