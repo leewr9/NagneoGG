@@ -18,8 +18,7 @@ public class ApiBattleInfo {
 	List<MatchVO> mList = new ArrayList<MatchVO>();
 	public List<MatchVO> getUserData(ArrayList<Long> list) {
 		String url = "https://kr.api.riotgames.com/lol/match/v4/matches/";
-		String apiKey = "?api_key=RGAPI-6413a437-b5fa-4578-ba22-a2fe576517e3";
-
+		String apiKey = "?api_key="+ApiKey.key;
 		try {
 			ObjectMapper om = new ObjectMapper();
 			HttpClient hc = HttpClientBuilder.create().build();

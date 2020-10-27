@@ -20,7 +20,7 @@ import com.nagneo.vo.LeagueEntryVO;
 public class ApiLeagueInfo {
 	public ArrayList<LeagueEntryVO> getLeagueData(String id) {
 		String url = "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/";
-		String apiKey = "?api_key=RGAPI-274ef476-d03e-4ace-8ca8-f72e648377e8";
+		String apiKey = "?api_key="+ApiKey.key;
 		ArrayList<LeagueEntryVO> arraylVO = new ArrayList<LeagueEntryVO>();
 		Set<LeagueEntryVO> setlVO = null;
 		try {

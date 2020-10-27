@@ -20,7 +20,7 @@ public class ApiMatchInfo {
 	
 	public ArrayList<Long> getUserData(String name) {
 		String url = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/";
-		String apiKey = "?endIndex=10&beginIndex=0&api_key=RGAPI-6413a437-b5fa-4578-ba22-a2fe576517e3";
+		String apiKey = "?endIndex=10&beginIndex=0&api_key="+ApiKey.key;
 		try {
 			ObjectMapper om = new ObjectMapper();
 			HttpClient hc = HttpClientBuilder.create().build();

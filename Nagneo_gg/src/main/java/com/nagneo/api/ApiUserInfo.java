@@ -18,7 +18,7 @@ public class ApiUserInfo {
 	public SummonerVO getUserData(String name) {
 		name = name.replaceAll(" ", "%20");
 		String url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/";
-		String apiKey = "?api_key=RGAPI-274ef476-d03e-4ace-8ca8-f72e648377e8";
+		String apiKey = "?api_key="+ApiKey.key;
 		SummonerVO sVO = null;
 		try {
 			ObjectMapper om = new ObjectMapper();

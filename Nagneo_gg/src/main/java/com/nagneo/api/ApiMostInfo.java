@@ -19,7 +19,7 @@ import com.nagneo.vo.LeagueEntryVO;
 public class ApiMostInfo {
 	public ArrayList<ChampionMasteryVO> getMostData(String id) {
 		String url = "https://kr.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/";
-		String apiKey = "?api_key=RGAPI-274ef476-d03e-4ace-8ca8-f72e648377e8";
+		String apiKey = "?api_key="+ApiKey.key;
 		List<ChampionMasteryVO> listcmVO = null;
 		ArrayList<ChampionMasteryVO> arraycmVO = new ArrayList<ChampionMasteryVO>(5);
 		try {
