@@ -28,6 +28,7 @@ import com.nagneo.service.UserService;
 import com.nagneo.vo.ChampionMasteryVO;
 import com.nagneo.vo.LeagueEntryVO;
 import com.nagneo.vo.MatchVO;
+import com.nagneo.vo.ParticipantVO;
 import com.nagneo.vo.SearchUserVO;
 import com.nagneo.vo.SummonerVO;
 import com.nagneo.vo.UserVO;
@@ -36,10 +37,10 @@ import com.nagneo.vo.UserVO;
 public class NagneoController {
 	@Autowired
 	private ApiUserInfo user;
-	
+
 	@Autowired
 	private ApiMatchInfo match;
-	
+
 	@Autowired
 	private ApiBattleInfo battle;
 
@@ -82,10 +83,10 @@ public class NagneoController {
 
 	@RequestMapping(value = "info", method = RequestMethod.GET)
 	public String userInfo(@RequestParam("idpw") String idpw, UserVO uVO, Model model) {
-		if(idpw.equals("id")) {
+		if (idpw.equals("id")) {
 			model.addAttribute("id", u.find(idpw, uVO));
 			model.addAttribute("pw", "비밀번호");
-		}else {
+		} else {
 			model.addAttribute("id", "아이디");
 			model.addAttribute("pw", u.find(idpw, uVO));
 		}
@@ -141,12 +142,21 @@ public class NagneoController {
 		SummonerVO sVO = user.getUserData(name);
 		System.out.println(sVO.getAccountId());
 		ArrayList<LeagueEntryVO> arraylVO = league.getLeagueData(sVO.getId());
-		ArrayList<ChampionMasteryVO> arraycmVO = champion.getChampionData(most.getMostData(sVO.getId()));
-		
+		ArrayList<ChampionMasteryVO> arraycmVO = most.getMostData(sVO.getId());
+		for (ChampionMasteryVO i : arraycmVO) {
+			i.setChampionName(champion.getChampionData(String.valueOf(i.getChampionId())));
+		}
+
 		ArrayList<Long> arrayKey = match.getMatchesData(sVO.getAccountId());
 		List<MatchVO> mList = battle.getMatchData(arrayKey);
 		ArrayList<SearchUserVO> arrayTitle = new ArrayList<SearchUserVO>();
-		
+
+		for (MatchVO i : mList) {
+			for (ParticipantVO j : i.getParticipants()) {
+				j.setChampionName(champion.getChampionData(String.valueOf(j.getChampionId())));
+			}
+		}
+
 		for (MatchVO a : mList) {
 			for (int i = 0; i < a.getParticipantIdentities().size(); i++) {
 				if (a.getParticipantIdentities().get(i).getPlayer().getSummonerName().equals(name)) {
@@ -163,8 +173,10 @@ public class NagneoController {
 					suVO.setKills(a.getParticipants().get(i).getStats().getKills());
 					suVO.setDeaths(a.getParticipants().get(i).getStats().getDeaths());
 					suVO.setAssists(a.getParticipants().get(i).getStats().getAssists());
-					suVO.setTotalMinionsKilled(a.getParticipants().get(i).getStats().getTotalMinionsKilled() + a.getParticipants().get(i).getStats().getNeutralMinionsKilled());
-					suVO.setTotalDamageDealtToChampions(a.getParticipants().get(i).getStats().getTotalDamageDealtToChampions());
+					suVO.setTotalMinionsKilled(a.getParticipants().get(i).getStats().getTotalMinionsKilled()
+							+ a.getParticipants().get(i).getStats().getNeutralMinionsKilled());
+					suVO.setTotalDamageDealtToChampions(
+							a.getParticipants().get(i).getStats().getTotalDamageDealtToChampions());
 					suVO.setSpell1Id(a.getParticipants().get(i).getSpell1Id());
 					suVO.setSpell2Id(a.getParticipants().get(i).getSpell2Id());
 					arrayTitle.add(suVO);

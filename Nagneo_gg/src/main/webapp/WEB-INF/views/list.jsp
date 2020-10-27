@@ -60,6 +60,11 @@ nav a {
 	margin-left: 15px;
 }
 
+table a {
+	text-decoration: none;
+	color: black;
+}
+
 section {
 	display: flex;
 	align-items: center;
@@ -191,45 +196,54 @@ footer {
 						1번 스펠 -> ${suVO.spell1Id}<br>
 						2번 스펠 -> ${suVO.spell2Id}<br>
 						 -->
-						<%for (int i = 0; i < 10; i++) {%>
+						<%
+							for (int i = 0; i < 10; i++) {
+						%>
 						<tr>
-							<c:forEach var="t" items="${arrayTitle}" begin="<%=i%>" end="<%=i%>">
-							<td>
-							소환사 번호 -> ${t.participantId}<br>
-							소환사 팀 -> ${t.teamId}<br>
-							소환사 승패 -> ${t.win}<br>
-							소환사 챔피언 -> ${t.championId}<br>
-							소환사 챔프렙 -> ${t.champLevel}<br>
-							킬 -> ${t.kills}<br>
-							데스 -> ${t.deaths}<br>
-							어시 -> ${t.assists}<br>
-							미니언 -> ${t.totalMinionsKilled}<br>
-							챔피언 딜량 -> ${t.totalDamageDealtToChampions}<br>
-							1번 스펠 -> ${t.spell1Id}<br>
-							2번 스펠 -> ${t.spell2Id}<br>
-							</td>
+							<c:forEach var="t" items="${arrayTitle}" begin="<%=i%>"
+								end="<%=i%>">
+								<td width="341">소환사 번호 -> ${t.participantId} 소환사 팀 ->
+									${t.teamId} 소환사 승패 -> ${t.win}<br> 소환사 챔피언 ->
+									${t.championId} 소환사 챔프렙 -> ${t.champLevel} 킬 -> ${t.kills}<br>
+									데스 -> ${t.deaths} 어시 -> ${t.assists} 미니언 ->
+									${t.totalMinionsKilled}<br> 챔피언 딜량 ->
+									${t.totalDamageDealtToChampions} 1번 스펠 -> ${t.spell1Id} 2번 스펠
+									-> ${t.spell2Id}<br>
+								</td>
 							</c:forEach>
-							<c:forEach var="m" items="${mList}" varStatus="status"	begin="<%=i%>" end="<%=i+1%>">
-									<c:if test="${status.count <= 1}">
-									<td>${m.gameMode}<br></td>				
-										<!-- 챔피언 아이디 / 소환사 이름 시작 -->
-										<c:forEach var="a" items="${m.participants}" varStatus="vs">
-											<c:if test="${(vs.count - 1) % 5 == 0 && vs.count != 10}">
+							<c:forEach var="m" items="${mList}" varStatus="status"
+								begin="<%=i%>" end="<%=i+1%>">
+								<c:if test="${status.count <= 1}">
+									<!-- 챔피언 아이디 / 소환사 이름 시작 -->
+									<c:forEach var="a" items="${m.participants}" varStatus="vs">
+										<c:if test="${(vs.count - 1) % 5 == 0 && vs.count != 10}">
 											<td>
-											</c:if>
-											${a.championId} / ${m.participantIdentities[vs.index].player.summonerName}
-											<br>
-											<c:if test="${vs.count % 5 == 0 && vs.count != 0}">
+												<table width="200">
+													</c:if>
+													<tr>
+														<td width="30"><img
+															src="<%=champion %>${a.championName }.png"
+															style="width: 30px; height: 30px; border-radius: 3px; border-color: black;"
+															border="1"> <font style="margin-top: -10px;"></td>
+														<td align="left" style="padding-bottom: 10px;"><a
+															href="search?name=${m.participantIdentities[vs.index].player.summonerName}">${m.participantIdentities[vs.index].player.summonerName}</a>
+															</font></td>
+													</tr>
+													<c:if test="${vs.count % 5 == 0 && vs.count != 0}">
+												</table>
 											</td>
-											</c:if>
-										</c:forEach>
-										<!-- 챔피언 아이디 / 소환사 이름 끝 -->
-										
-									</c:if>
-									
+										</c:if>
+									</c:forEach>
+									<!-- 챔피언 아이디 / 소환사 이름 끝 -->
+									<td width="80" bgcolor="#303030" align="center"
+										style="color: white; font-size: 20px;">${m.gameMode}<br></td>
+								</c:if>
+
 							</c:forEach>
 						</tr>
-						<%} %>
+						<%
+							}
+						%>
 					</table></td>
 			</tr>
 		</table>

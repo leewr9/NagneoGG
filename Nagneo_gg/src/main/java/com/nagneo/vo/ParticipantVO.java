@@ -6,36 +6,54 @@ public class ParticipantVO {
 	private ParticipantStatsVO stats;
 	private int spell1Id;
 	private int spell2Id;
-	
-	
+	private String championName;
+
 	public int getSpell1Id() {
 		return spell1Id;
 	}
+
 	public void setSpell1Id(int spell1Id) {
 		this.spell1Id = spell1Id;
 	}
+
 	public int getSpell2Id() {
 		return spell2Id;
 	}
+
 	public void setSpell2Id(int spell2Id) {
 		this.spell2Id = spell2Id;
 	}
+
 	public int getTeamId() {
 		return teamId;
 	}
+
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
+
 	public int getChampionId() {
 		return championId;
 	}
+
 	public void setChampionId(int championId) {
 		this.championId = championId;
 	}
+
 	public ParticipantStatsVO getStats() {
 		return stats;
 	}
+
 	public void setStats(ParticipantStatsVO stats) {
 		this.stats = stats;
 	}
+
+	public String getChampionName() {
+		return championName;
+	}
+
+	public void setChampionName(String championName) {
+		this.championName = championName;
+	}
+
 }
