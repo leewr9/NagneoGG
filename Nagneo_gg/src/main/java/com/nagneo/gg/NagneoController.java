@@ -138,9 +138,7 @@ public class NagneoController {
 	@RequestMapping(value = "search", method = RequestMethod.GET)
 	public String apiSearch(@RequestParam("name") String name, Model model, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) {
-		System.out.println(name);
 		SummonerVO sVO = user.getUserData(name);
-		System.out.println(sVO.getAccountId());
 		ArrayList<LeagueEntryVO> arraylVO = league.getLeagueData(sVO.getId());
 		ArrayList<ChampionMasteryVO> arraycmVO = most.getMostData(sVO.getId());
 		for (ChampionMasteryVO i : arraycmVO) {

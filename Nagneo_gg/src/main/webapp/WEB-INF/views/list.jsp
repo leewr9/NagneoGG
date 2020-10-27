@@ -217,7 +217,7 @@ footer {
 									<!-- 챔피언 아이디 / 소환사 이름 시작 -->
 									<c:forEach var="a" items="${m.participants}" varStatus="vs">
 										<c:if test="${(vs.count - 1) % 5 == 0 && vs.count != 10}">
-											<td>
+											<td style="padding-top: 3px;">
 												<table width="200">
 													</c:if>
 													<tr>
