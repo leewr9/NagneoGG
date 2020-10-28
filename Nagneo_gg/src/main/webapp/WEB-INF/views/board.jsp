@@ -90,6 +90,23 @@ table tr td {
 	height: 50px;
 }
 </style>
+<script type="text/javascript">
+	function chat() {
+		var chat = document.getElementById("chat");
+		var array = chat.value;
+
+		var chatting = document.getElementById("chatting");
+
+		chatting.innerHTML += "\n" + array;
+		chat.value = "";
+
+	}
+	function enter() {
+		if(event.keyCode == 13){
+			chat();
+		}
+	}
+</script>
 <body>
 	<header>
 		<a href="./"><img src="resources/image/logo.png"></a> <input
@@ -100,60 +117,29 @@ table tr td {
 		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
 			onclick="alert('미구현');">챔피언검색</a><a href="board">커뮤니티</a>
 		<form action="search" method="get" id="navSearch">
-		<input type="text" name="name" 
-				style="width: 210px; height: 22px;" placeholder="리그오브레전드 닉네임">
-			<input type="submit" value="검색" 
+			<input type="text" name="name" style="width: 210px; height: 22px;"
+				placeholder="리그오브레전드 닉네임"> <input type="submit" value="검색"
 				style="width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;">
 		</form>
 	</nav>
 	<section>
 		<table>
 			<tr>
-				<td><a href="./"><img src="resources/image/main.png"></a></td>
+				<td><textarea id="chatting" rows="13" cols="110" readonly>NAGNEO.GG CHATING</textarea></td>
 			</tr>
 			<tr>
-				<td><form name="id_form" action="info" method="get">
-						<table>
-							<tr>
-								<td><input type="text" name="nickname"
-									style="width: 400px; height: 30px; font-size: 15px;"
-									placeholder="리그오브레전드 닉네임"></td>
-							</tr>
-							<tr>
-								<td><input type="text" name="phone"
-									style="width: 400px; height: 30px; font-size: 15px;"
-									placeholder="핸드폰번호"></td>
-							</tr>
-							<tr>
-								<td><input type="hidden" name="idpw" value="id"><input
-									type="submit" value="아이디 찾기"
-									style="background-color: #303030; border: none; color: white; width: 407px; height: 35px; font-size: 15px; cursor: pointer;"></td>
-							</tr>
-						</table>
-					</form></td>
+				<td><input type="text" id="chat"
+					style="width: 600px; height: 22px;" placeholder="욕설금지" onkeypress="enter();"><input
+					type="button" value="입력" name="chatin"
+					style="width: 74px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;"
+					onclick="chat();"></td>
+
 			</tr>
-			<tr>
-				<td><form name="password_form" action="info" method="get">
-						<table>
-							<tr>
-								<td><input type="text" name="id"
-									style="width: 400px; height: 30px; font-size: 15px;"
-									placeholder="아이디"></td>
-							</tr>
-							<tr>
-								<td><input type="text" name="phone"
-									style="width: 400px; height: 30px; font-size: 15px;"
-									placeholder="핸드폰번호"></td>
-							</tr>
-							<tr>
-								<td><input type="hidden" name="idpw" value="pw"><input
-									type="submit" value="비밀번호 찾기"
-									style="background-color: #303030; border: none; color: white; width: 407px; height: 35px; font-size: 15px; cursor: pointer;"></td>
-							</tr>
-						</table>
-					</form></td>
-			</tr>
+
+
 		</table>
+
+
 	</section>
 	<footer>
 		© 2020-2020 NAGNEO.GG. NAGNEO.GG isn’t endorsed by Riot Games and

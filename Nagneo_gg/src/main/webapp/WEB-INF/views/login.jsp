@@ -107,7 +107,7 @@ a {
 	</header>
 	<nav>
 		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
-			onclick="alert('미구현');">챔피언검색</a><a href="2">커뮤니티</a>
+			onclick="alert('미구현');">챔피언검색</a><a href="board">커뮤니티</a>
 		<form action="search" method="get" id="navSearch">
 		<input type="text" name="name" 
 				style="width: 210px; height: 22px;" placeholder="리그오브레전드 닉네임">

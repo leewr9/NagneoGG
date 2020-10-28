@@ -150,7 +150,7 @@ footer {
 </header>
 <nav>
 	<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
-		onclick="alert('미구현');">챔피언검색</a><a href="2">커뮤니티</a>
+		onclick="alert('미구현');">챔피언검색</a><a href="board">커뮤니티</a>
 	<form action="search" method="get" id="navSearch">
 		<input type="text" name="name" style="width: 210px; height: 22px;"
 			placeholder="리그오브레전드 닉네임"> <input type="submit" value="검색"
@@ -170,8 +170,11 @@ footer {
 					</tr>
 					<tr>
 						<td height="50" bgcolor="#303030" align="center"
-							style="font-size: 18px; color: white;">${sVO.name }[&nbsp;Lv.
-							${sVO.summonerLevel } ]</td>
+							style="font-size: 18px; color: white;"><c:if
+								test="${sVO.name eq '　존재하지않는소환사'}">
+							존재하지 않는 소환사
+							</c:if> <c:if test="${sVO.name ne '　존재하지않는소환사'}">
+							${sVO.name } [ Lv. ${sVO.summonerLevel } ]</c:if></td>
 					</tr>
 				</table>
 			</td>
@@ -245,7 +248,8 @@ footer {
 							<td width="333" align="left">
 								<table>
 									<tr>
-										<td colspan="2" align="center" style="font-size: 25px;">${t.win}<font size="3">[ ${t.gameDuration} ]</font></td>
+										<td colspan="2" align="center" style="font-size: 25px;">${t.win}<font
+											size="3">[ ${t.gameDuration} ]</font></td>
 									</tr>
 									<tr>
 										<td rowspan="2" style="padding-left: 6px;"><img
@@ -256,8 +260,8 @@ footer {
 											style="font-size: 15px; padding-left: 3px; letter-spacing: -1px; padding-bottom: -8px;"
 											align="left">${t.champion.korid}[Lv.${t.champLevel}]<br>
 											${t.kills}/${t.deaths}/${t.assists} KDA ${t.kda }<br>CS
-											${t.totalMinionsKilled} <br> 피해량
-											${t.totalDamageDealtToChampions}
+											${t.totalMinionsKilled} [ ${t.minuteMinionsKilled } ] <br>
+											피해량 ${t.totalDamageDealtToChampions}
 											<hr>
 										</td>
 									</tr>

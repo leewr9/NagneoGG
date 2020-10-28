@@ -110,7 +110,7 @@ footer {
 	</header>
 	<nav>
 		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
-			onclick="alert('미구현');">챔피언검색</a><a href="2">커뮤니티</a>
+			onclick="alert('미구현');">챔피언검색</a><a href="board">커뮤니티</a>
 	</nav>
 	<section>
 		<form action="search" method="get">
@@ -118,7 +118,7 @@ footer {
 				<tr>
 					<td><table>
 							<tr>
-								<td><a href="./"><img src="resources/image/index.png"></a></td>
+								<td><a href="./"><img src="resources/image/search.png"></a></td>
 							</tr>
 							<tr>
 								<td><input type="text" name="name"

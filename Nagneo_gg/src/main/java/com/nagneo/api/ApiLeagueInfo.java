@@ -35,7 +35,15 @@ public class ApiLeagueInfo {
 	@Autowired
 	private ChampionService c;
 
-	private String key = "RGAPI-339177e1-1c7e-4dd0-af67-5e39bd26be0e";
+	private String key = "RGAPI-e7bdf376-3092-4f9c-9d06-13c099bf13d0";
+
+	public MatchVO getDetailMatch(int no) {
+		return mList.get(no);
+	}
+
+	public SearchUserVO getDetailTitle(int no) {
+		return arrayTitle.get(no);
+	}
 
 	public ArrayList<LeagueEntryVO> getLeagueData(String id) {
 		ArrayList<LeagueEntryVO> arraylVO = new ArrayList<LeagueEntryVO>(2);
@@ -202,6 +210,7 @@ public class ApiLeagueInfo {
 					suVO.setKda();
 					suVO.setTotalMinionsKilled(mList.get(j).getParticipants().get(i).getStats().getTotalMinionsKilled()
 							+ mList.get(j).getParticipants().get(i).getStats().getNeutralMinionsKilled());
+					suVO.setMinuteMinionsKilled(mList.get(j).getGameDuration());
 					suVO.setTotalDamageDealtToChampions(
 							mList.get(j).getParticipants().get(i).getStats().getTotalDamageDealtToChampions());
 					suVO.setSpell1Id(c.spell(mList.get(j).getParticipants().get(i).getSpell1Id()));
@@ -319,7 +328,7 @@ public class ApiLeagueInfo {
 				if (sVO == null) {
 					SummonerVO temp = new SummonerVO();
 					temp.setId("");
-					temp.setName("존재하지 않는 소환사");
+					temp.setName("　존재하지않는소환사");
 					temp.setProfileIconId(1);
 					temp.setSummonerLevel(1);
 					sVO = temp;

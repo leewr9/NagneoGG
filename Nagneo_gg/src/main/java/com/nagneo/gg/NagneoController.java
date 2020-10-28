@@ -63,6 +63,11 @@ public class NagneoController {
 	public String find(Model model) {
 		return "find";
 	}
+	
+	@RequestMapping(value = "board", method = RequestMethod.GET)
+	public String board(Model model) {
+		return "board";
+	}
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public String detail(Model model) {
@@ -149,7 +154,7 @@ public class NagneoController {
 		List<MatchVO> mList = league.getMatchData(arrayKey, 0);
 		ArrayList<SearchUserVO> arrayTitle = league.getTitleList(mList, sVO.getName(), 0);
 		try {
-			if (!sVO.getName().equals("∞")) {
+			if (!sVO.getName().equals("　존재하지않는소환사")) {
 				Cookie cookie = new Cookie(URLEncoder.encode(String.valueOf(request.getCookies().length + 1), "UTF-8"),
 						URLEncoder.encode(sVO.getName() + "," + String.valueOf(sVO.getProfileIconId()), "UTF-8"));
 				response.addCookie(cookie);
