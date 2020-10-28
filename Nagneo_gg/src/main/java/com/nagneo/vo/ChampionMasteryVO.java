@@ -4,7 +4,15 @@ public class ChampionMasteryVO {
 	private long championId;
 	private int championLevel;
 	private int championPoints;
-	private String championName;
+	private ChampionVO champion;
+
+	public ChampionVO getChampion() {
+		return champion;
+	}
+
+	public void setChampion(ChampionVO champion) {
+		this.champion = champion;
+	}
 
 	public long getChampionId() {
 		return championId;
@@ -28,14 +36,6 @@ public class ChampionMasteryVO {
 
 	public void setChampionPoints(int championPoints) {
 		this.championPoints = championPoints;
-	}
-
-	public String getChampionName() {
-		return championName;
-	}
-
-	public void setChampionName(String championName) {
-		this.championName = championName;
 	}
 
 }

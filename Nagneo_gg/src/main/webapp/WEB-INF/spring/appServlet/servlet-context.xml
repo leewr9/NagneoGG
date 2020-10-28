@@ -50,28 +50,8 @@
 		</interceptor>
 	</interceptors>
 
-	<beans:bean id="ApiUserInfo"
-		class="com.nagneo.api.ApiUserInfo">
-	</beans:bean>
-	
-	<beans:bean id="ApiBattleInfo"
-		class="com.nagneo.api.ApiBattleInfo">
-	</beans:bean>
-	
-	<beans:bean id="ApiMatchInfo"
-		class="com.nagneo.api.ApiMatchInfo">
-	</beans:bean>
-
 	<beans:bean id="ApiLeagueInfo"
 		class="com.nagneo.api.ApiLeagueInfo">
-	</beans:bean>
-
-	<beans:bean id="ApiChampionInfo"
-		class="com.nagneo.api.ApiChampionInfo">
-	</beans:bean>
-
-	<beans:bean id="ApiMostInfo"
-		class="com.nagneo.api.ApiMostInfo">
 	</beans:bean>
 
 	<context:component-scan

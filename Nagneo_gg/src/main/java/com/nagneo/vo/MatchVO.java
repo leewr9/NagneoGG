@@ -6,6 +6,7 @@ public class MatchVO {
 	private List<ParticipantIdentityVO> participantIdentities;
 	private List<TeamStatsVO> teams;
 	private String gameMode;
+	private long gameDuration;
 	private List<ParticipantVO> participants;
 	
 	public List<ParticipantIdentityVO> getParticipantIdentities() {
@@ -31,5 +32,11 @@ public class MatchVO {
 	}
 	public void setParticipants(List<ParticipantVO> participants) {
 		this.participants = participants;
+	}
+	public long getGameDuration() {
+		return gameDuration;
+	}
+	public void setGameDuration(long gameDuration) {
+		this.gameDuration = gameDuration;
 	}
 }

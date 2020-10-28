@@ -60,6 +60,10 @@ nav a {
 	margin-left: 15px;
 }
 
+#navSearch {
+	float: right;
+}
+
 section {
 	display: flex;
 	align-items: center;
@@ -104,6 +108,12 @@ a {
 	<nav>
 		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
 			onclick="alert('미구현');">챔피언검색</a><a href="2">커뮤니티</a>
+		<form action="search" method="get" id="navSearch">
+		<input type="text" name="name" 
+				style="width: 210px; height: 22px;" placeholder="리그오브레전드 닉네임">
+			<input type="submit" value="검색" 
+				style="width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;">
+		</form>
 	</nav>
 	<section>
 		<form action="in" method="post">

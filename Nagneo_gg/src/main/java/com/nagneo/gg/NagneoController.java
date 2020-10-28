@@ -17,18 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nagneo.api.ApiBattleInfo;
-import com.nagneo.api.ApiChampionInfo;
 import com.nagneo.api.ApiLeagueInfo;
-import com.nagneo.api.ApiMatchInfo;
-import com.nagneo.api.ApiMostInfo;
-import com.nagneo.api.ApiUserInfo;
 import com.nagneo.service.BoardService;
+import com.nagneo.service.ChampionService;
 import com.nagneo.service.UserService;
 import com.nagneo.vo.ChampionMasteryVO;
 import com.nagneo.vo.LeagueEntryVO;
 import com.nagneo.vo.MatchVO;
-import com.nagneo.vo.ParticipantVO;
 import com.nagneo.vo.SearchUserVO;
 import com.nagneo.vo.SummonerVO;
 import com.nagneo.vo.UserVO;
@@ -36,28 +31,16 @@ import com.nagneo.vo.UserVO;
 @Controller
 public class NagneoController {
 	@Autowired
-	private ApiUserInfo user;
-
-	@Autowired
-	private ApiMatchInfo match;
-
-	@Autowired
-	private ApiBattleInfo battle;
-
-	@Autowired
 	private ApiLeagueInfo league;
-
-	@Autowired
-	private ApiChampionInfo champion;
-
-	@Autowired
-	private ApiMostInfo most;
 
 	@Autowired
 	private UserService u;
 
 	@Autowired
 	private BoardService b;
+
+	@Autowired
+	private ChampionService c;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -79,6 +62,25 @@ public class NagneoController {
 	@RequestMapping(value = "find", method = RequestMethod.GET)
 	public String find(Model model) {
 		return "find";
+	}
+
+	@RequestMapping(value = "detail", method = RequestMethod.GET)
+	public String detail(Model model) {
+		return "detail";
+	}
+
+	@RequestMapping(value = "more", method = RequestMethod.GET)
+	public String more(@RequestParam("index") String index, HttpServletRequest request, HttpSession session) {
+		SummonerVO sVO = (SummonerVO) request.getSession().getAttribute("sVO");
+		ArrayList<Long> arrayKey = league.getMatchesData(sVO.getAccountId(), String.valueOf(index),
+				String.valueOf(Integer.valueOf(index) - 5));
+		List<MatchVO> mList = league.getMatchData(arrayKey, Integer.valueOf(index) - 5);
+		ArrayList<SearchUserVO> arrayTitle = league.getTitleList(mList, sVO.getName(), Integer.valueOf(index) - 5);
+
+		session.setAttribute("mList", mList);
+		session.setAttribute("arrayTitle", arrayTitle);
+		request.setAttribute("index", arrayKey.size());
+		return "list";
 	}
 
 	@RequestMapping(value = "info", method = RequestMethod.GET)
@@ -136,75 +138,37 @@ public class NagneoController {
 	}
 
 	@RequestMapping(value = "search", method = RequestMethod.GET)
-	public String apiSearch(@RequestParam("name") String name, Model model, HttpServletRequest request,
-			HttpServletResponse response, HttpSession session) {
-		System.out.println(name);
-		SummonerVO sVO = user.getUserData(name);
-		System.out.println(sVO.getAccountId());
+	public String apiSearch(@RequestParam("name") String name, HttpServletRequest request, HttpServletResponse response,
+			HttpSession session) {
+		SummonerVO sVO = league.getUserData(name);
 		ArrayList<LeagueEntryVO> arraylVO = league.getLeagueData(sVO.getId());
-		ArrayList<ChampionMasteryVO> arraycmVO = most.getMostData(sVO.getId());
-		for (ChampionMasteryVO i : arraycmVO) {
-			i.setChampionName(champion.getChampionData(String.valueOf(i.getChampionId())));
-		}
+		ArrayList<ChampionMasteryVO> arraycmVO = league.getMostData(sVO.getId());
 
-		ArrayList<Long> arrayKey = match.getMatchesData(sVO.getAccountId());
-		List<MatchVO> mList = battle.getMatchData(arrayKey);
-		ArrayList<SearchUserVO> arrayTitle = new ArrayList<SearchUserVO>();
-
-		for (MatchVO i : mList) {
-			for (ParticipantVO j : i.getParticipants()) {
-				j.setChampionName(champion.getChampionData(String.valueOf(j.getChampionId())));
-			}
-		}
-
-		for (MatchVO a : mList) {
-			for (int i = 0; i < a.getParticipantIdentities().size(); i++) {
-				if (a.getParticipantIdentities().get(i).getPlayer().getSummonerName().equals(name)) {
-					SearchUserVO suVO = new SearchUserVO();
-					suVO.setParticipantId(a.getParticipantIdentities().get(i).getParticipantId());
-					suVO.setTeamId(a.getParticipants().get(i).getTeamId());
-					if (a.getTeams().get(0).getTeamId() == suVO.getTeamId()) {
-						suVO.setWin(a.getTeams().get(0).getWin());
-					} else {
-						suVO.setWin(a.getTeams().get(1).getWin());
-					}
-					suVO.setChampionId(a.getParticipants().get(i).getChampionId());
-					suVO.setChampLevel(a.getParticipants().get(i).getStats().getChampLevel());
-					suVO.setKills(a.getParticipants().get(i).getStats().getKills());
-					suVO.setDeaths(a.getParticipants().get(i).getStats().getDeaths());
-					suVO.setAssists(a.getParticipants().get(i).getStats().getAssists());
-					suVO.setTotalMinionsKilled(a.getParticipants().get(i).getStats().getTotalMinionsKilled()
-							+ a.getParticipants().get(i).getStats().getNeutralMinionsKilled());
-					suVO.setTotalDamageDealtToChampions(
-							a.getParticipants().get(i).getStats().getTotalDamageDealtToChampions());
-					suVO.setSpell1Id(a.getParticipants().get(i).getSpell1Id());
-					suVO.setSpell2Id(a.getParticipants().get(i).getSpell2Id());
-					arrayTitle.add(suVO);
-					break;
-				}
-			}
-		}
+		league.reset();
+		ArrayList<Long> arrayKey = league.getMatchesData(sVO.getAccountId(), String.valueOf(5), String.valueOf(0));
+		List<MatchVO> mList = league.getMatchData(arrayKey, 0);
+		ArrayList<SearchUserVO> arrayTitle = league.getTitleList(mList, sVO.getName(), 0);
 		try {
-			Cookie cookie = new Cookie(URLEncoder.encode(String.valueOf(request.getCookies().length + 1), "UTF-8"),
-					URLEncoder.encode(sVO.getName() + "," + String.valueOf(sVO.getProfileIconId()), "UTF-8"));
-			response.addCookie(cookie);
+			if (!sVO.getName().equals("¡Ä")) {
+				Cookie cookie = new Cookie(URLEncoder.encode(String.valueOf(request.getCookies().length + 1), "UTF-8"),
+						URLEncoder.encode(sVO.getName() + "," + String.valueOf(sVO.getProfileIconId()), "UTF-8"));
+				response.addCookie(cookie);
+			}
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		for (LeagueEntryVO i : arraylVO) {
-			if (i.getQueueType().indexOf("¼Ö·Î") > -1) {
-				model.addAttribute("sololVO", i);
-			} else {
-				model.addAttribute("freelVO", i);
-			}
-		}
+		session.setAttribute("sVO", sVO);
+		session.setAttribute("arraycmVO", arraycmVO);
 
-		model.addAttribute("arrayTitle", arrayTitle);
-		model.addAttribute("mList", mList);
-		model.addAttribute("arraycmVO", arraycmVO);
-		model.addAttribute("sVO", sVO);
+		session.setAttribute("mList", mList);
+		session.setAttribute("arrayTitle", arrayTitle);
+		session.setAttribute("arrayKey", arrayKey);
+
+		request.setAttribute("index", mList.size());
+		session.setAttribute("sololVO", arraylVO.get(0));
+		session.setAttribute("freelVO", arraylVO.get(1));
 		return "list";
 	}
 
