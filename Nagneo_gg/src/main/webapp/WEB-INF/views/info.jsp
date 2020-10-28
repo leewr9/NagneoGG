@@ -69,7 +69,6 @@ section {
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	height: 85%;
 }
 
 section img {
@@ -86,20 +85,15 @@ footer {
 	font-size: 12px;
 }
 
-table {
-	width: 400px;
-}
-
-tr td {
+table tr td {
+	width: 250px;
 	height: 50px;
-}
-
-a {
-	text-decoration: none;
-	color: black;
 }
 </style>
 <body>
+	<%
+		String champion = "https://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/";
+	%>
 	<header>
 		<a href="./"><img src="resources/image/logo.png"></a> <input
 			type="button" id="login" value="${logChk }"
@@ -114,42 +108,27 @@ a {
 		</form>
 	</nav>
 	<section>
-		<form action="in" method="post">
-			<table>
-				<tr>
-					<td colspan="2"><a href="./"><img
-							src="resources/image/main.png"></a></td>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="text" name="id"
-						style="width: 400px; height: 30px; font-size: 15px;"
-						placeholder="아이디"></td>
-				</tr>
-				<c:if test="${id ne '아이디'}">
+		<table>
+			<tr>
+				<td height="50" colspan="10"></td>
+			</tr>
+			<c:forEach var="i" items="${cList }" varStatus="j">
+				<c:if test="${j.count % 10 == 1}">
 					<tr>
-						<td>찾으신 아이디는 [ ${id } ]입니다</td>
+				</c:if>
+				<td align="center" style="width: 100px; height: 40px; padding-top: 3px; padding-bottom: 3px; font-size: 13px;">
+					<img src="<%=champion %>${i.engid }.png"
+					style="width: 50px; height: 50px; margin-bottom: -5px"><br>
+					${i.korid }
+				</td>
+				<c:if test="${j.count % 10 == 0}">
 					</tr>
 				</c:if>
-				<tr>
-					<td colspan="2"><input type="password" name="pw"
-						style="width: 400px; height: 30px; font-size: 15px;"
-						placeholder="비밀번호"></td>
-				</tr>
-				<c:if test="${pw ne '비밀번호'}">
-					<tr>
-						<td>찾으신 비밀번호는 [ ${pw } ]입니다</td>
-					</tr>
-				</c:if>
-				<tr>
-					<td colspan="2"><input type="submit" value="로그인"
-						style="background-color: #303030; border: none; color: white; width: 407px; height: 35px; font-size: 15px; cursor: pointer;"></td>
-				</tr>
-				<tr>
-					<td><a href="find">아이디/비밀번호찾기</a></td>
-					<td align="right"><a href="reg">회원가입</a></td>
-				</tr>
-			</table>
-		</form>
+			</c:forEach>
+			<tr>
+				<td height="30" colspan="10"></td>
+			</tr>
+		</table>
 	</section>
 	<footer>
 		© 2020-2020 NAGNEO.GG. NAGNEO.GG isn’t endorsed by Riot Games and

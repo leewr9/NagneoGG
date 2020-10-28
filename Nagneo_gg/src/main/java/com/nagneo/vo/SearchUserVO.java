@@ -10,10 +10,12 @@ public class SearchUserVO {
 	private int assists;
 	private String kda;
 	private int totalMinionsKilled;
+	private String minuteMinionsKilled;
 	private long totalDamageDealtToChampions;
-	private int spell1Id;
-	private int spell2Id;
+	private SpellVO spell1Id;
+	private SpellVO spell2Id;
 	private ChampionVO champion;
+	private String gameDuration;
 
 	public ChampionVO getChampion() {
 		return champion;
@@ -23,19 +25,19 @@ public class SearchUserVO {
 		this.champion = champion;
 	}
 
-	public int getSpell1Id() {
+	public SpellVO getSpell1Id() {
 		return spell1Id;
 	}
 
-	public void setSpell1Id(int spell1Id) {
+	public void setSpell1Id(SpellVO spell1Id) {
 		this.spell1Id = spell1Id;
 	}
 
-	public int getSpell2Id() {
+	public SpellVO getSpell2Id() {
 		return spell2Id;
 	}
 
-	public void setSpell2Id(int spell2Id) {
+	public void setSpell2Id(SpellVO spell2Id) {
 		this.spell2Id = spell2Id;
 	}
 
@@ -116,12 +118,30 @@ public class SearchUserVO {
 		this.totalMinionsKilled = totalMinionsKilled;
 	}
 
+	public String getMinuteMinionsKilled() {
+		return minuteMinionsKilled;
+	}
+
+	public void setMinuteMinionsKilled(long minute) {
+		double kills = (double) ((double) totalMinionsKilled
+				/ ((double) (minute / 60) + ((double) ((double) minute % 60) / 60)));
+		this.minuteMinionsKilled = String.format("%.1f", kills);
+	}
+
 	public long getTotalDamageDealtToChampions() {
 		return totalDamageDealtToChampions;
 	}
 
 	public void setTotalDamageDealtToChampions(long totalDamageDealtToChampions) {
 		this.totalDamageDealtToChampions = totalDamageDealtToChampions;
+	}
+
+	public String getGameDuration() {
+		return gameDuration;
+	}
+
+	public void setGameDuration(String gameDuration) {
+		this.gameDuration = gameDuration;
 	}
 
 }

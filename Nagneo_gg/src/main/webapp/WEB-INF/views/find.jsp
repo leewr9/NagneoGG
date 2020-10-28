@@ -59,6 +59,10 @@ nav a {
 	margin-left: 15px;
 }
 
+#navSearch {
+	float: right;
+}
+
 section {
 	display: flex;
 	align-items: center;
@@ -93,8 +97,13 @@ table tr td {
 			onclick="location.href='./login'">
 	</header>
 	<nav>
-		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
-			onclick="alert('미구현');">챔피언검색</a><a href="2">커뮤니티</a>
+		<a href="./">소환사검색</a><a href="board">챔피언검색</a>
+		<form action="search" method="get" id="navSearch">
+		<input type="text" name="name" 
+				style="width: 210px; height: 22px;" placeholder="리그오브레전드 닉네임">
+			<input type="submit" value="검색" 
+				style="width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;">
+		</form>
 	</nav>
 	<section>
 		<table>
@@ -136,7 +145,8 @@ table tr td {
 									placeholder="핸드폰번호"></td>
 							</tr>
 							<tr>
-								<td><input type="hidden" name="idpw" value="pw"><input type="submit" value="비밀번호 찾기"
+								<td><input type="hidden" name="idpw" value="pw"><input
+									type="submit" value="비밀번호 찾기"
 									style="background-color: #303030; border: none; color: white; width: 407px; height: 35px; font-size: 15px; cursor: pointer;"></td>
 							</tr>
 						</table>
