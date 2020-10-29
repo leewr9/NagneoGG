@@ -5,10 +5,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.nagneo.mapper.ChampionMapper">
 	<select id="allChampion" resultType="com.nagneo.vo.ChampionVO">
 		select * from
-		nagneo_champion
+		nagneo_champion order by korid asc
 	</select>
 
 	<select id="allSpell" resultType="com.nagneo.vo.SpellVO">
 		select * from nagneo_spell
+	</select>
+
+	<select id="allRune" resultType="com.nagneo.vo.RuneVO">
+		select * from nagneo_rune
 	</select>
 </mapper>

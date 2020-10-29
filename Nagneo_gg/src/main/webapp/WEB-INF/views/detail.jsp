@@ -105,130 +105,293 @@ footer {
 	letter-spacing: -1px;
 	font-size: 12px;
 }
+
+hr {
+	background-color: black;
+	color: black;
+	height: 1px;
+	border: none;
+}
 </style>
-<body>
-	<%
-		String champion = "https://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/";
-		String spell = "http://ddragon.leagueoflegends.com/cdn/10.22.1/img/spell/";
-		String profileicon = "http://ddragon.leagueoflegends.com/cdn/10.21.1/img/profileicon/";
-		String emblems = "resources/image/ranked-emblems/Emblem_";
-		String positions = "resources/image/ranked-positions/Position_";
-	%>
-	<header>
-		<a href="./"><img src="resources/image/logo.png"></a> <input
-			type="button" id="login" value="${logChk }"
-			onclick="location.href='./login'">
-	</header>
-	<nav>
-		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
-			onclick="alert('미구현');">챔피언검색</a><a href="2">커뮤니티</a>
-		<form action="search" method="get" id="navSearch">
-			<input type="text" name="name" style="width: 210px; height: 22px;"
-				placeholder="리그오브레전드 닉네임"> <input type="submit" value="검색"
-				style="width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;">
-		</form>
-	</nav>
-	<section>
-		<table>
-			<tr>
-				<td rowspan="3" width="200">
-					<table border=1 cellspacing="0" cellpadding="0" bordercolor="black"
-						style="border-collapse: collapse">
-						<tr rowspan="4">
-							<td width="200"><img
-								src="<%=profileicon %>${sVO.profileIconId }.png"
-								style="width: 200px; height: 200px; margin-bottom: -5px"></td>
-						</tr>
+<%
+	String champion = "https://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/";
+	String spell = "http://ddragon.leagueoflegends.com/cdn/10.22.1/img/spell/";
+	String profileicon = "http://ddragon.leagueoflegends.com/cdn/10.21.1/img/profileicon/";
+	String item = "http://ddragon.leagueoflegends.com/cdn/10.22.1/img/item/";
+	String emblems = "resources/image/ranked-emblems/Emblem_";
+	String trim = "resources/image/ranked-trim/Trim_";
+	String mastery = "resources/image/most-mastery/Mastery_level";
+%>
+<header>
+	<a href="./"><img src="resources/image/logo.png"></a> <input
+		type="button" id="login" value="${logChk }"
+		onclick="location.href='./login'">
+</header>
+<nav>
+	<a href="./">소환사검색</a><a href="board">챔피언검색</a>
+	<form action="search" method="get" id="navSearch">
+		<input type="text" name="name" style="width: 210px; height: 22px;"
+			placeholder="리그오브레전드 닉네임"> <input type="submit" value="검색"
+			style="width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;">
+	</form>
+</nav>
+<section>
+	<table style="table-layout: fixed;">
+		<tr>
+			<td rowspan="3" width="200">
+				<table border=1 cellspacing="0" cellpadding="0" bordercolor="black"
+					style="border-collapse: collapse">
+					<tr rowspan="4">
+						<td width="200"><div style="position: relative;">
+								<img src="<%=profileicon %>${sVO.profileIconId }.png"
+									style="width: 200px; height: 200px; margin-bottom: -5px">
+								<img src="<%=trim %>${sololVO.tier }.png"
+									style="position: absolute; left: -1px; top: 120px; width: 202px; height: 101px;">
+							</div></td>
+					</tr>
+					<tr>
+						<td height="50" bgcolor="#303030" align="center"><c:if
+								test="${sVO.name eq '　존재하지않는소환사'}">
+							존재하지 않는 소환사
+							</c:if> <c:if test="${sVO.name ne '　존재하지않는소환사'}">
+								<a href="search?name=${sVO.name }"
+									style="font-size: 18px; color: white;">${sVO.name } [ Lv.
+									${sVO.summonerLevel } ]</a>
+							</c:if></td>
+					</tr>
+				</table>
+			</td>
+			<td height="50"></td>
+			<td rowspan="3" width="200">
+				<table border=1 cellspacing="0" cellpadding="0" bordercolor="gray"
+					style="border-collapse: collapse">
+					<c:forEach var="i" items="${arraycmVO }">
 						<tr>
-							<td height="50" bgcolor="#303030" align="center"
-								style="font-size: 18px; color: white;">${sVO.name }[Lv.
-								${sVO.summonerLevel } ]</td>
+							<td width="50"><img
+								src="<%=champion %>${i.champion.engid }.png"
+								style="width: 50px; height: 50px; margin-bottom: -5px; cursor: pointer;"
+								onclick="location.href='./champion?key=${i.champion.key }'"
+								title="${i.champion.korid }"></td>
+							<td align="center" bgcolor="#303030"><img
+								src="<%=mastery %>${i.championLevel }.png"
+								style="width: 45px; height: 40px; margin-bottom: -5px"
+								title="레벨 ${i.championLevel }"></td>
+							<td width="200" bgcolor="#303030"
+								style="color: white; padding-left: 5px;">숙련도
+								${i.championPoints }</td>
 						</tr>
-					</table>
-				</td>
-				<td height="50"></td>
-				<td rowspan="3" width="200">
-					<table border=1 cellspacing="0" cellpadding="0" bordercolor="gray"
-						style="border-collapse: collapse">
-						<c:forEach var="i" items="${arraycmVO }">
-							<tr>
-								<td width="50"><img
-									src="<%=champion %>${i.champion.engid }.png"
-									style="width: 50px; height: 50px; margin-bottom: -5px"></td>
-								<td width="150" align="center" bgcolor="#303030"
-									style="color: white;">레벨${i.championLevel }[ 숙련도
-									${i.championPoints } ]</td>
-							</tr>
-						</c:forEach>
-					</table>
-				</td>
-			</tr>
-			<tr>
-				<td><table border=1 cellspacing="0" cellpadding="0"
-						bordercolor="gray" style="border-collapse: collapse">
+					</c:forEach>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td><table border=1 cellspacing="0" cellpadding="0"
+					bordercolor="gray" style="border-collapse: collapse">
+					<tr>
+						<td width="100" height="100" align="center"><img
+							src="<%=emblems%>${sololVO.tier }.png"
+							style="width: 80px; height: 91px"></td>
+						<td width="300">&nbsp;${sololVO.queueType }<br>&nbsp;${sololVO.tier }
+							${sololVO.rank } ${sololVO.leaguePoints }포인트<br>&nbsp;${sololVO.wins }승
+							${sololVO.losses }패 [ 승률 ${sololVO.percentages }% ]<input
+							type="button" id="refresh" value="전적갱신"
+							onclick="location.href='search?name=${sVO.name }'"><br></td>
+					</tr>
+					<tr>
+						<td height="100" align="center"><img
+							src="<%=emblems%>${freelVO.tier }.png"
+							style="width: 80px; height: 91px"></td>
+						<td>&nbsp;${freelVO.queueType }<br>&nbsp;${freelVO.tier }
+							${freelVO.rank } ${freelVO.leaguePoints }포인트<br>&nbsp;${freelVO.wins }승
+							${freelVO.losses }패 [ 승률 ${freelVO.percentages }% ]
+						</td>
+					</tr>
+				</table></td>
+		</tr>
+		<tr>
+			<td height="50" colspan="2"></td>
+		</tr>
+		<tr>
+			<td colspan="3"><table border=1 cellspacing="0" cellpadding="0"
+					bordercolor="gray" style="border-collapse: collapse">
+					<tr>
+						<td height="50" colspan="2">
+							<table style="width: 100%">
+								<tr>
+									<td style="width: 50%; font-size: 20px;"><font
+										style="color: #007fcf; font-weight: bold;">블루</font><font
+										style="font-size: 15px;">( ${mVO.teams[0].win} )</font><font
+										style="font-size: 15px; margin-left: 10%">골드
+											${mVO.teams[0].gold}</font> <font
+										style="font-size: 15px; margin-left: 10%"> 바론
+											${mVO.teams[0].baronKills} &nbsp;드래곤
+											${mVO.teams[0].dragonKills} &nbsp;타워
+											${mVO.teams[0].towerKills} </font><font
+										style="color: #007fcf; font-weight: bold; float: right; margin-right: 5px;">${mVO.teams[0].score}</font></td>
+
+
+									<td style="width: 50%; font-size: 20px;"><font
+										style="color: #cf0000; font-weight: bold; float: left; margin-left: 5px;">${mVO.teams[1].score}</font><font
+										style="font-size: 15px; margin-left: 10%"> 바론
+											${mVO.teams[1].baronKills} &nbsp;드래곤
+											${mVO.teams[1].dragonKills} &nbsp;타워
+											${mVO.teams[1].towerKills} </font> <font
+										style="font-size: 15px; margin-left: 9%">골드
+											${mVO.teams[1].gold}</font><font
+										style="font-size: 15px; margin-left: 9%">(
+											${mVO.teams[1].win} )</font><font
+										style="color: #cf0000; font-weight: bold; float: right; margin-right: 5px;">레드</font></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<c:forEach var="i" begin="0" end="4">
 						<tr>
-							<td width="100" height="100" align="center"><img
-								src="<%=emblems%>${sololVO.tier }.png"
-								style="width: 80px; height: 91px"></td>
-							<td width="300">&nbsp;${sololVO.queueType }<br>&nbsp;${sololVO.tier }
-								${sololVO.rank } ${sololVO.leaguePoints }포인트<br>&nbsp;${sololVO.wins }승
-								${sololVO.losses }패 [ 승률 ${sololVO.percentages }% ]<input
-								type="button" id="refresh" value="전적갱신"
-								onclick="location.href='search?name=${sVO.name }'"><br></td>
-						</tr>
-						<tr>
-							<td height="100" align="center"><img
-								src="<%=emblems%>${freelVO.tier }.png"
-								style="width: 80px; height: 91px"></td>
-							<td>&nbsp;${freelVO.queueType }<br>&nbsp;${freelVO.tier }
-								${freelVO.rank } ${freelVO.leaguePoints }포인트<br>&nbsp;${freelVO.wins }승
-								${freelVO.losses }패 [ 승률 ${freelVO.percentages }% ]
+							<td width="407" height="100" bgcolor="#a3cfec">
+								<table>
+									<tr>
+										<td colspan="2" style="font-size: 18px;" align="center"><a
+											href="search?name=${mVO.participantIdentities[i].player.summonerName}"
+											style="font-weight: bold; color: #303030; letter-spacing: -1px;">${mVO.participantIdentities[i].player.summonerName}
+												[ ${mVO.participantIdentities[i].player.lVO[0].tier}
+												${mVO.participantIdentities[i].player.lVO[0].rank} ]</a>
+											<hr style="margin-top: 5px;"></td>
+									</tr>
+									<tr>
+										<td rowspan="2"><img
+											src="<%=champion %>${mVO.participants[i].champion.engid }.png"
+											style="width: 80px; height: 80px; margin-left: 2px; margin-top: -1px; margin-bottom: -2px; border-radius: 8px; border-color: black; cursor: pointer;"
+											onclick="location.href='./champion?key=${mVO.participants[i].champion.key }'"
+											border="1" title="${mVO.participants[i].champion.korid }">
+										</td>
+										<td><c:forEach var="item"
+												items="${mVO.participants[i].stats.items }">
+												<c:choose>
+													<c:when test="${item != 0 }">
+														<img src="<%=item %>${item }.png"
+															style="width: 40px; height: 40px; margin-top: -5px; margin-bottom: -15px; border-radius: 4px; border-color: black;"
+															border="1">
+													</c:when>
+													<c:otherwise>
+														<img src="resources/image/${item }.png"
+															style="width: 40px; height: 40px; margin-top: -5px; margin-bottom: -15px; border-radius: 4px; border-color: black;"
+															border="1">
+													</c:otherwise>
+												</c:choose>
+
+											</c:forEach></td>
+									</tr>
+									<tr>
+										<td style="font-size: 16px;" align="left"><hr> <img
+											src="<%=spell %>${mVO.participants[i].spell1.engid }.png"
+											style="width: 20px; height: 20px; margin-top: 6px; margin-bottom: -6px; margin-left: 2px; border-radius: 2px; border-color: black;"
+											border="1"><img
+											src="<%=spell %>${mVO.participants[i].spell2.engid }.png"
+											style="width: 20px; height: 20px; margin-top: 6px; margin-bottom: -6px; margin-left: 2px; border-radius: 2px; border-color: black;"
+											border="1"><a href="#"
+											style="margin-left: 10px; letter-spacing: -0.5px; cursor: default;">${mVO.participants[i].champion.korid }
+												Lv.${mVO.participants[i].stats.champLevel}</a></td>
+									</tr>
+								</table>
+								<hr>
+								<table>
+									<tr>
+										<td width="140"><div
+												style="float: left; border: 1px solid; width: 100px; height: 15px; margin-top: 2px; margin-bottom: -2px;">
+												<div
+													style="float: left; background-color: #cf0000; width: ${mVO.participants[i].stats.graphDamage}px; height: 15px;"></div>
+											</div>
+											<div style="margin-top: -1px; margin-bottom: 1px;">
+												${mVO.participants[i].stats.totalDamageDealtToChampions}</div></td>
+										<td width="160" style="letter-spacing: -0.9px;" align="center">${mVO.participants[i].stats.kills}
+											/ ${mVO.participants[i].stats.deaths} /
+											${mVO.participants[i].stats.assists}
+											[${mVO.participants[i].stats.kda}]</td>
+										<td width="120" style="letter-spacing: -0.9px;" align="right">CS
+											${mVO.participants[i].stats.minions}[${mVO.participants[i].stats.minuteMinionsKilled}]</td>
+									</tr>
+								</table>
+							</td>
+							<td width="408" bgcolor="#e2b6b3">
+								<table>
+									<tr>
+										<td colspan="2" style="font-size: 18px;" align="center"><a
+											href="#"
+											style="font-weight: bold; color: #303030; letter-spacing: -1px;">${mVO.participantIdentities[i + 5].player.summonerName}
+												[ ${mVO.participantIdentities[i + 5].player.lVO[0].tier}
+												${mVO.participantIdentities[i + 5].player.lVO[0].rank} ]</a>
+											<hr style="margin-top: 5px;"></td>
+									</tr>
+									<tr>
+										<td rowspan="2"><img
+											src="<%=champion %>${mVO.participants[i + 5].champion.engid }.png"
+											style="width: 80px; height: 80px; margin-left: 2px; margin-top: -1px; margin-bottom: -2px; border-radius: 8px; border-color: black; cursor: pointer;"
+											onclick="location.href='./champion?key=${mVO.participants[i + 5].champion.key }'"
+											border="1" title="${mVO.participants[i + 5].champion.korid }">
+										</td>
+										<td><c:forEach var="item"
+												items="${mVO.participants[i + 5].stats.items }">
+												<c:choose>
+													<c:when test="${item != 0 }">
+														<img src="<%=item %>${item }.png"
+															style="width: 40px; height: 40px; margin-top: -5px; margin-bottom: -15px; border-radius: 4px; border-color: black;"
+															border="1">
+													</c:when>
+													<c:otherwise>
+														<img src="resources/image/${item }.png"
+															style="width: 40px; height: 40px; margin-top: -5px; margin-bottom: -15px; border-radius: 4px; border-color: black;"
+															border="1">
+													</c:otherwise>
+												</c:choose>
+
+											</c:forEach></td>
+									</tr>
+									<tr>
+										<td style="font-size: 16px;" align="left"><hr> <img
+											src="<%=spell %>${mVO.participants[i + 5].spell1.engid }.png"
+											style="width: 20px; height: 20px; margin-top: 6px; margin-bottom: -6px; margin-left: 2px; border-radius: 2px; border-color: black;"
+											border="1"><img
+											src="<%=spell %>${mVO.participants[i + 5].spell2.engid }.png"
+											style="width: 20px; height: 20px; margin-top: 6px; margin-bottom: -6px; margin-left: 2px; border-radius: 2px; border-color: black;"
+											border="1"><a href="#"
+											style="margin-left: 10px; letter-spacing: -0.5px; cursor: default;">${mVO.participants[i + 5].champion.korid }
+												Lv.${mVO.participants[i + 5].stats.champLevel}</a></td>
+									</tr>
+								</table>
+								<hr>
+								<table>
+									<tr>
+										<td width="140"><div
+												style="float: left; border: 1px solid; width: 100px; height: 15px; margin-top: 2px; margin-bottom: -2px;">
+												<div
+													style="float: left; background-color: #cf0000; width: ${mVO.participants[i + 5].stats.graphDamage}px; height: 15px;"></div>
+											</div>
+											<div style="margin-top: -1px; margin-bottom: 1px;">
+												${mVO.participants[i + 5].stats.totalDamageDealtToChampions}</div></td>
+										<td width="160" style="letter-spacing: -0.9px;" align="center">${mVO.participants[i + 5].stats.kills}
+											/ ${mVO.participants[i + 5].stats.deaths} /
+											${mVO.participants[i + 5].stats.assists}
+											[${mVO.participants[i + 5].stats.kda}]</td>
+										<td width="120" style="letter-spacing: -0.9px;" align="right">CS
+											${mVO.participants[i + 5].stats.minions}[${mVO.participants[i + 5].stats.minuteMinionsKilled}]</td>
+									</tr>
+								</table>
 							</td>
 						</tr>
-					</table></td>
-			</tr>
-			<tr>
-				<td height="50" colspan="2"></td>
-			</tr>
-			<tr>
-				<td colspan="3"><table border=1 cellspacing="0" cellpadding="0"
-						bordercolor="gray" style="border-collapse: collapse">
-						<tr>
-							<td colspan="2" height="50">스코어</td>
-						</tr>
-						<tr>
-							<td width="407" height="100">레드</td>
-							<td width="407">블루</td>
-						</tr>
-						<tr>
-							<td width="407" height="100">레드</td>
-							<td width="407">블루</td>
-						</tr>
-						<tr>
-							<td width="407" height="100">레드</td>
-							<td width="407">블루</td>
-						</tr>
-						<tr>
-							<td width="407" height="100">레드</td>
-							<td width="407">블루</td>
-						</tr>
-						<tr>
-							<td width="407" height="100">레드</td>
-							<td width="407">블루</td>
-						</tr>
-					</table></td>
-			</tr>
-			<tr>
-				<td height="30" colspan="2"></td>
-			</tr>
-		</table>
-	</section>
-	<footer>
-		© 2020-2020 NAGNEO.GG. NAGNEO.GG isn’t endorsed by Riot Games and
-		doesn’t reflect the views or opinions of Riot Games or anyone
-		officially involved in producing or managing League of Legends. <br>League
-		of Legends and Riot Games are trademarks or registered trademarks of
-		Riot Games, Inc. League of Legends © Riot Games, Inc.
-	</footer>
+					</c:forEach>
+				</table></td>
+		</tr>
+		<tr>
+			<td height="30" colspan="2"></td>
+		</tr>
+	</table>
+</section>
+<footer>
+	© 2020-2020 NAGNEO.GG. NAGNEO.GG isn’t endorsed by Riot Games and
+	doesn’t reflect the views or opinions of Riot Games or anyone
+	officially involved in producing or managing League of Legends. <br>League
+	of Legends and Riot Games are trademarks or registered trademarks of
+	Riot Games, Inc. League of Legends © Riot Games, Inc.
+</footer>
 </body>
 </html>

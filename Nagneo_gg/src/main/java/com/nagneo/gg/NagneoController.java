@@ -22,6 +22,7 @@ import com.nagneo.service.BoardService;
 import com.nagneo.service.ChampionService;
 import com.nagneo.service.UserService;
 import com.nagneo.vo.ChampionMasteryVO;
+import com.nagneo.vo.ChampionVO;
 import com.nagneo.vo.LeagueEntryVO;
 import com.nagneo.vo.MatchVO;
 import com.nagneo.vo.SearchUserVO;
@@ -66,13 +67,25 @@ public class NagneoController {
 	
 	@RequestMapping(value = "board", method = RequestMethod.GET)
 	public String board(Model model) {
+		model.addAttribute("cList", c.allCohampion());
 		return "board";
+	}
+	
+	@RequestMapping(value = "champion", method = RequestMethod.GET)
+	public String info(@RequestParam("key") String key, Model model) {
+		model.addAttribute("cVO", c.champion(Integer.valueOf(key)));
+		return "info";
 	}
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public String detail(Model model) {
+	public String detail(@RequestParam("no") String no,Model model) {
+		MatchVO mVO = league.getDetailMatch(Integer.valueOf(no));
+		SearchUserVO suVO = league.getDetailTitle(Integer.valueOf(no));
+		model.addAttribute("mVO", mVO);
+		model.addAttribute("suVO", suVO);
 		return "detail";
 	}
+
 
 	@RequestMapping(value = "more", method = RequestMethod.GET)
 	public String more(@RequestParam("index") String index, HttpServletRequest request, HttpSession session) {

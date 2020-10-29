@@ -106,12 +106,10 @@ a {
 			onclick="location.href='./login'">
 	</header>
 	<nav>
-		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
-			onclick="alert('미구현');">챔피언검색</a><a href="board">커뮤니티</a>
+		<a href="./">소환사검색</a><a href="board">챔피언검색</a>
 		<form action="search" method="get" id="navSearch">
-		<input type="text" name="name" 
-				style="width: 210px; height: 22px;" placeholder="리그오브레전드 닉네임">
-			<input type="submit" value="검색" 
+			<input type="text" name="name" style="width: 210px; height: 22px;"
+				placeholder="리그오브레전드 닉네임"> <input type="submit" value="검색"
 				style="width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;">
 		</form>
 	</nav>

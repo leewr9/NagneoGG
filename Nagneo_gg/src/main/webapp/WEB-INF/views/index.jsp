@@ -109,8 +109,7 @@ footer {
 			onclick="location.href='./login'">
 	</header>
 	<nav>
-		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
-			onclick="alert('미구현');">챔피언검색</a><a href="board">커뮤니티</a>
+		<a href="./">소환사검색</a><a href="board">챔피언검색</a>
 	</nav>
 	<section>
 		<form action="search" method="get">
@@ -140,7 +139,7 @@ footer {
 										src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/profileicon/${i.value }.png"
 										style="width: 20px; height: 20px; border-radius: 3px; border-color: black;"
 										border="1"></td>
-									<td width="70" style="padding-bottom: 9px;"
+									<td style="padding-bottom: 9px; padding-right: 5px;"
 										align="left"><a href="search?name=${i.key }">${i.key }</a></td>
 								</c:forEach>
 							</tr>

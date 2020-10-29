@@ -10,12 +10,22 @@ public class SearchUserVO {
 	private int assists;
 	private String kda;
 	private int totalMinionsKilled;
-	private String minuteMinionsKilled;
 	private long totalDamageDealtToChampions;
 	private SpellVO spell1Id;
 	private SpellVO spell2Id;
 	private ChampionVO champion;
 	private String gameDuration;
+	private String minuteMinionsKilled;
+	
+	public String getMinuteMinionsKilled() {
+		return minuteMinionsKilled;
+	}
+
+	public void setMinuteMinionsKilled(long minute) {
+		double kills = (double) ((double) totalMinionsKilled
+				/ ((double) (minute / 60) + ((double) ((double) minute % 60) / 60)));
+		this.minuteMinionsKilled = String.format("%.1f", kills);
+	}
 
 	public ChampionVO getChampion() {
 		return champion;
@@ -116,16 +126,6 @@ public class SearchUserVO {
 
 	public void setTotalMinionsKilled(int totalMinionsKilled) {
 		this.totalMinionsKilled = totalMinionsKilled;
-	}
-
-	public String getMinuteMinionsKilled() {
-		return minuteMinionsKilled;
-	}
-
-	public void setMinuteMinionsKilled(long minute) {
-		double kills = (double) ((double) totalMinionsKilled
-				/ ((double) (minute / 60) + ((double) ((double) minute % 60) / 60)));
-		this.minuteMinionsKilled = String.format("%.1f", kills);
 	}
 
 	public long getTotalDamageDealtToChampions() {

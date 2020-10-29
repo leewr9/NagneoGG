@@ -6,6 +6,25 @@ public class TeamStatsVO {
 	private int towerKills;
 	private int dragonKills;
 	private int baronKills;
+	private int score;
+	private int gold;
+	private int reset;
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public int getGold() {
+		return gold;
+	}
+
+	public void setGold(int gold) {
+		this.gold = gold;
+	}
 
 	public int getDragonKills() {
 		return dragonKills;
@@ -46,4 +65,14 @@ public class TeamStatsVO {
 	public void setTowerKills(int towerKills) {
 		this.towerKills = towerKills;
 	}
+
+	public int getReset() {
+		return reset;
+	}
+
+	public void setReset(int reset) {
+		this.gold = reset;
+		this.score = reset;
+	}
+
 }

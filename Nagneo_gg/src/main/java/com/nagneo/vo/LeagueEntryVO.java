@@ -4,11 +4,11 @@ public class LeagueEntryVO {
 	private String summonerId;
 	private String summonerName;
 	private String queueType;
-	private String tier;
-	private String rank;
-	private int leaguePoints;
-	private int wins;
-	private int losses;
+	private String tier = "UNRANKED";
+	private String rank = "X";
+	private int leaguePoints = 0;
+	private int wins = 0;
+	private int losses = 0;
 	private int percentages;
 
 	public String getSummonerId() {

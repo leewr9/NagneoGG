@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,7 +69,6 @@ section {
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	height: 85%;
 }
 
 section img {
@@ -89,33 +89,23 @@ table tr td {
 	width: 250px;
 	height: 50px;
 }
+
+table a {
+	text-decoration: none;
+	color: black;
+}
 </style>
-<script type="text/javascript">
-	function chat() {
-		var chat = document.getElementById("chat");
-		var array = chat.value;
-
-		var chatting = document.getElementById("chatting");
-
-		chatting.innerHTML += "\n" + array;
-		chat.value = "";
-
-	}
-	function enter() {
-		if(event.keyCode == 13){
-			chat();
-		}
-	}
-</script>
 <body>
+	<%
+		String champion = "https://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/";
+	%>
 	<header>
 		<a href="./"><img src="resources/image/logo.png"></a> <input
 			type="button" id="login" value="${logChk }"
 			onclick="location.href='./login'">
 	</header>
 	<nav>
-		<a href="#" onclick="alert('미구현');">소환사검색</a><a href="#"
-			onclick="alert('미구현');">챔피언검색</a><a href="board">커뮤니티</a>
+		<a href="./">소환사검색</a><a href="board">챔피언검색</a>
 		<form action="search" method="get" id="navSearch">
 			<input type="text" name="name" style="width: 210px; height: 22px;"
 				placeholder="리그오브레전드 닉네임"> <input type="submit" value="검색"
@@ -125,21 +115,25 @@ table tr td {
 	<section>
 		<table>
 			<tr>
-				<td><textarea id="chatting" rows="13" cols="110" readonly>NAGNEO.GG CHATING</textarea></td>
+				<td height="50" colspan="10"></td>
 			</tr>
+			<c:forEach var="i" items="${cList }" varStatus="j">
+				<c:if test="${j.count % 10 == 1}">
+					<tr>
+				</c:if>
+				<td align="center" style="width: 100px; height: 40px; padding-top: 3px; padding-bottom: 3px; font-size: 13px;">
+					<a href="champion?key=${i.key }"><img src="<%=champion %>${i.engid }.png"
+					style="width: 50px; height: 50px; margin-bottom: -5px"></a></a><br>
+					<a href="champion?key=${i.key }">${i.korid }</a>
+				</td>
+				<c:if test="${j.count % 10 == 0}">
+					</tr>
+				</c:if>
+			</c:forEach>
 			<tr>
-				<td><input type="text" id="chat"
-					style="width: 600px; height: 22px;" placeholder="욕설금지" onkeypress="enter();"><input
-					type="button" value="입력" name="chatin"
-					style="width: 74px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;"
-					onclick="chat();"></td>
-
+				<td height="30" colspan="10"></td>
 			</tr>
-
-
 		</table>
-
-
 	</section>
 	<footer>
 		© 2020-2020 NAGNEO.GG. NAGNEO.GG isn’t endorsed by Riot Games and
