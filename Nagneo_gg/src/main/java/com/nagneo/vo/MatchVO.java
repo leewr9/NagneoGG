@@ -8,7 +8,7 @@ public class MatchVO {
 	private String gameMode;
 	private long gameDuration;
 	private List<ParticipantVO> participants;
-	
+
 	public List<ParticipantIdentityVO> getParticipantIdentities() {
 		return participantIdentities;
 	}
@@ -39,4 +39,5 @@ public class MatchVO {
 	public void setGameDuration(long gameDuration) {
 		this.gameDuration = gameDuration;
 	}
+
 }

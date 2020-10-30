@@ -18,11 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nagneo.api.ApiLeagueInfo;
-import com.nagneo.service.BoardService;
 import com.nagneo.service.ChampionService;
 import com.nagneo.service.UserService;
 import com.nagneo.vo.ChampionMasteryVO;
-import com.nagneo.vo.ChampionVO;
 import com.nagneo.vo.LeagueEntryVO;
 import com.nagneo.vo.MatchVO;
 import com.nagneo.vo.SearchUserVO;
@@ -33,12 +31,9 @@ import com.nagneo.vo.UserVO;
 public class NagneoController {
 	@Autowired
 	private ApiLeagueInfo league;
-
+	
 	@Autowired
 	private UserService u;
-
-	@Autowired
-	private BoardService b;
 
 	@Autowired
 	private ChampionService c;
@@ -51,6 +46,7 @@ public class NagneoController {
 		if (request.getSession().getAttribute("login") == null) {
 			request.getSession().setAttribute("logChk", "·Î±×ÀÎ");
 		}
+//		champion.champion();
 		return "index";
 	}
 
@@ -78,9 +74,14 @@ public class NagneoController {
 	}
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public String detail(Model model) {
+	public String detail(@RequestParam("no") String no,Model model) {
+		MatchVO mVO = league.getDetailMatch(Integer.valueOf(no));
+		SearchUserVO suVO = league.getDetailTitle(Integer.valueOf(no));
+		model.addAttribute("mVO", mVO);
+		model.addAttribute("suVO", suVO);
 		return "detail";
 	}
+
 
 	@RequestMapping(value = "more", method = RequestMethod.GET)
 	public String more(@RequestParam("index") String index, HttpServletRequest request, HttpSession session) {

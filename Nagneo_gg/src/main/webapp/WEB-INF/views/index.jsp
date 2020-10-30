@@ -139,7 +139,7 @@ footer {
 										src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/profileicon/${i.value }.png"
 										style="width: 20px; height: 20px; border-radius: 3px; border-color: black;"
 										border="1"></td>
-									<td width="70" style="padding-bottom: 9px;"
+									<td style="padding-bottom: 9px; padding-right: 5px;"
 										align="left"><a href="search?name=${i.key }">${i.key }</a></td>
 								</c:forEach>
 							</tr>

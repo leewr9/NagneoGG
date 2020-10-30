@@ -12,4 +12,5 @@ public class MatchesVO {
 	public void setMatches(List<MatchNumVO> matches) {
 		this.matches = matches;
 	}
+
 }

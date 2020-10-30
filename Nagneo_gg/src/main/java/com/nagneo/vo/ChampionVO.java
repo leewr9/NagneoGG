@@ -1,9 +1,23 @@
 package com.nagneo.vo;
 
+import java.util.ArrayList;
+
 public class ChampionVO {
+	private int key;
 	private String engid;
 	private String korid;
-	private int key;
+	private String title;
+
+	private ArrayList<ChampionSkinVO> skin = new ArrayList<ChampionSkinVO>();
+	private ArrayList<ChampionSkillVO> skill = new ArrayList<ChampionSkillVO>();
+
+	public int getKey() {
+		return key;
+	}
+
+	public void setKey(int key) {
+		this.key = key;
+	}
 
 	public String getEngid() {
 		return engid;
@@ -21,12 +35,28 @@ public class ChampionVO {
 		this.korid = korid;
 	}
 
-	public int getKey() {
-		return key;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setKey(int key) {
-		this.key = key;
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public ArrayList<ChampionSkinVO> getSkin() {
+		return skin;
+	}
+
+	public void setSkin(ChampionSkinVO skin) {
+		this.skin.add(skin);
+	}
+
+	public ArrayList<ChampionSkillVO> getSkill() {
+		return skill;
+	}
+
+	public void setSkill(ChampionSkillVO skill) {
+		this.skill.add(skill);
 	}
 
 }

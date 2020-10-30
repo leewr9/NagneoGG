@@ -32,12 +32,54 @@ public class ApiLeagueInfo {
 	private List<MatchVO> mList;
 	private ArrayList<SearchUserVO> arrayTitle;
 
+	private ObjectMapper om = new ObjectMapper();
+	private HttpClient hc = HttpClientBuilder.create().build();
 	@Autowired
 	private ChampionService c;
 
-	private String key = "RGAPI-e7bdf376-3092-4f9c-9d06-13c099bf13d0";
-
+	private String key = "RGAPI-70e6eec3-74f9-47c8-bc89-3781263c67a3";
+	
 	public MatchVO getDetailMatch(int no) {
+		int cnt = 0;
+		long max = 0;
+		mList.get(no).getTeams().get(0).setReset(0);
+		mList.get(no).getTeams().get(1).setReset(0);
+		for (ParticipantVO p : mList.get(no).getParticipants()) {
+			cnt++;
+			p.getStats().setReset();
+			p.getStats().setItems(p.getStats().getItem0());
+			p.getStats().setItems(p.getStats().getItem1());
+			p.getStats().setItems(p.getStats().getItem2());
+			p.getStats().setItems(p.getStats().getItem3());
+			p.getStats().setItems(p.getStats().getItem4());
+			p.getStats().setItems(p.getStats().getItem5());
+			p.getStats().setItems(p.getStats().getItem6());
+
+			p.getStats().setMinions(p.getStats().getTotalMinionsKilled() + p.getStats().getNeutralMinionsKilled());
+			p.getStats().setMinuteMinionsKilled(mList.get(no).getGameDuration());
+			p.getStats().setKda();
+			if (max < p.getStats().getTotalDamageDealtToChampions()) {
+				max = p.getStats().getTotalDamageDealtToChampions();
+			}
+			if (cnt <= 5) {
+				mList.get(no).getTeams().get(0)
+						.setScore(mList.get(no).getTeams().get(0).getScore() + p.getStats().getKills());
+				mList.get(no).getTeams().get(0)
+						.setGold(mList.get(no).getTeams().get(0).getGold() + p.getStats().getGoldEarned());
+			} else {
+				mList.get(no).getTeams().get(1)
+						.setScore(mList.get(no).getTeams().get(1).getScore() + p.getStats().getKills());
+				mList.get(no).getTeams().get(1)
+						.setGold(mList.get(no).getTeams().get(1).getGold() + p.getStats().getGoldEarned());
+			}
+
+			mList.get(no).getParticipantIdentities().get(cnt - 1).getPlayer().setlVO(
+					(getLeagueData(mList.get(no).getParticipantIdentities().get(cnt - 1).getPlayer().getSummonerId())));
+		}
+
+		for (ParticipantVO p : mList.get(no).getParticipants()) {
+			p.getStats().setGraphDamage(max);
+		}
 		return mList.get(no);
 	}
 
@@ -52,8 +94,6 @@ public class ApiLeagueInfo {
 			String apiKey = "?api_key=" + key;
 			Set<LeagueEntryVO> setlVO = null;
 			try {
-				ObjectMapper om = new ObjectMapper();
-				HttpClient hc = HttpClientBuilder.create().build();
 				HttpGet hg = new HttpGet(url + id + apiKey);
 				HttpResponse hr = hc.execute(hg);
 				if (hr.getStatusLine().getStatusCode() == 200) {
@@ -78,28 +118,16 @@ public class ApiLeagueInfo {
 						tempQueue = i.getQueueType();
 					}
 					if (arraylVO.size() == 0) {
+						String type = "¼Ö·Î ·©Å©";
 						for (int i = 0; i < 2; i++) {
 							temp = new LeagueEntryVO();
-							temp.setLeaguePoints(0);
-							temp.setLosses(0);
-							temp.setRank("X");
-							temp.setTier("IRON");
-							temp.setWins(0);
 							temp.setPercentages();
-							if (i % 2 == 0) {
-								temp.setQueueType("¼Ö·Î ·©Å©");
-							} else {
-								temp.setQueueType("ÀÚÀ¯ ·©Å©");
-							}
+							temp.setQueueType(type);
 							arraylVO.add(temp);
+							type = "ÀÚÀ¯ ·©Å©";
 						}
-					} else if (arraylVO.size() < 2) {
+					} else if (arraylVO.size() == 1) {
 						temp = new LeagueEntryVO();
-						temp.setLeaguePoints(0);
-						temp.setLosses(0);
-						temp.setRank("X");
-						temp.setTier("IRON");
-						temp.setWins(0);
 						temp.setPercentages();
 						if (tempQueue.indexOf("¼Ö·Î") > -1) {
 							temp.setQueueType("ÀÚÀ¯ ·©Å©");
@@ -111,8 +139,13 @@ public class ApiLeagueInfo {
 							arraylVO.add(temp);
 							arraylVO.add(temps);
 						}
+					} else if (arraylVO.size() == 2 && arraylVO.get(0).getQueueType().indexOf("ÀÚÀ¯") > -1) {
+						LeagueEntryVO temps = arraylVO.get(0);
+						temp = arraylVO.get(1);
+						arraylVO.clear();
+						arraylVO.add(temp);
+						arraylVO.add(temps);
 					}
-
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -120,41 +153,29 @@ public class ApiLeagueInfo {
 			return arraylVO;
 		} else {
 			LeagueEntryVO temp = null;
-
-			temp = new LeagueEntryVO();
-			temp.setLeaguePoints(0);
-			temp.setLosses(0);
-			temp.setRank("X");
-			temp.setTier("IRON");
-			temp.setWins(0);
-			temp.setQueueType("¼Ö·Î ·©Å©");
-			temp.setPercentages();
-			arraylVO.add(temp);
-
-			temp = new LeagueEntryVO();
-			temp.setLeaguePoints(0);
-			temp.setLosses(0);
-			temp.setRank("X");
-			temp.setTier("IRON");
-			temp.setWins(0);
-			temp.setQueueType("ÀÚÀ¯ ·©Å©");
-			temp.setPercentages();
-			arraylVO.add(temp);
-
+			String type = "¼Ö·Î ·©Å©";
+			for (int i = 0; i < 2; i++) {
+				temp = new LeagueEntryVO();
+				temp.setQueueType(type);
+				temp.setPercentages();
+				arraylVO.add(temp);
+				type = "ÀÚÀ¯ ·©Å©";
+			}
 			return arraylVO;
 		}
 	}
 
 	public List<MatchVO> getMatchData(ArrayList<Long> list, int start) {
+		System.out.println(list.size());
+		System.out.println("start" + start);
 		String url = "https://kr.api.riotgames.com/lol/match/v4/matches/";
 		String apiKey = "?api_key=" + key;
 		try {
-			ObjectMapper om = new ObjectMapper();
-			HttpClient hc = HttpClientBuilder.create().build();
 			for (int i = start; i < list.size(); i++) {
-				MatchVO mVO = new MatchVO();
 				HttpGet hg = new HttpGet(url + list.get(i) + apiKey);
+				System.out.println(list.get(i));
 				HttpResponse hr = hc.execute(hg);
+				MatchVO mVO = new MatchVO();
 				if (hr.getStatusLine().getStatusCode() == 200) {
 					ResponseHandler<String> h = new BasicResponseHandler();
 					String body = h.handleResponse(hr);
@@ -169,21 +190,32 @@ public class ApiLeagueInfo {
 					} else {
 						mVO.setGameMode("´Ü¡¡ÀÏ");
 					}
+					for (ParticipantVO j : mVO.getParticipants()) {
+						j.setChampion(c.champion(j.getChampionId()));
+						j.setSpell1(c.spell(j.getSpell1Id()));
+						j.setSpell2(c.spell(j.getSpell2Id()));
+						j.setRune1(c.rune(j.getStats().getPerk0()));
+						j.setRune2(c.rune(j.getStats().getPerkSubStyle()));
+					}
+					for (int j = 0; j < 2; j++) {
+						if (mVO.getTeams().get(j).getWin().equals("Win")) {
+							mVO.getTeams().get(j).setWin("½Â¸®");
+						} else {
+							mVO.getTeams().get(j).setWin("ÆÐ¹è");
+						}
+					}
+
 					mList.add(mVO);
 				}
 			}
 		} catch (Exception e) {
-
-		}
-		for (MatchVO i : mList) {
-			for (ParticipantVO j : i.getParticipants()) {
-				j.setChampion(c.champion(j.getChampionId()));
-			}
+			e.printStackTrace();
 		}
 		return mList;
 	}
 
 	public ArrayList<SearchUserVO> getTitleList(List<MatchVO> mList, String name, int start) {
+		System.out.println(mList.size());
 		String win = "Win";
 		for (int j = start; j < mList.size(); j++) {
 			for (int i = 0; i < mList.get(j).getParticipantIdentities().size(); i++) {
@@ -192,15 +224,9 @@ public class ApiLeagueInfo {
 					suVO.setParticipantId(mList.get(j).getParticipantIdentities().get(i).getParticipantId());
 					suVO.setTeamId(mList.get(j).getParticipants().get(i).getTeamId());
 					if (mList.get(j).getTeams().get(0).getTeamId() == suVO.getTeamId()) {
-						if (mList.get(j).getTeams().get(0).getWin().equals(win))
-							suVO.setWin("½Â¸®");
-						else
-							suVO.setWin("ÆÐ¹è");
+						suVO.setWin(mList.get(j).getTeams().get(0).getWin());
 					} else {
-						if (mList.get(j).getTeams().get(1).getWin().equals(win))
-							suVO.setWin("½Â¸®");
-						else
-							suVO.setWin("ÆÐ¹è");
+						suVO.setWin(mList.get(j).getTeams().get(1).getWin());
 					}
 					suVO.setChampion(c.champion(mList.get(j).getParticipants().get(i).getChampionId()));
 					suVO.setChampLevel(mList.get(j).getParticipants().get(i).getStats().getChampLevel());
@@ -210,13 +236,13 @@ public class ApiLeagueInfo {
 					suVO.setKda();
 					suVO.setTotalMinionsKilled(mList.get(j).getParticipants().get(i).getStats().getTotalMinionsKilled()
 							+ mList.get(j).getParticipants().get(i).getStats().getNeutralMinionsKilled());
-					suVO.setMinuteMinionsKilled(mList.get(j).getGameDuration());
 					suVO.setTotalDamageDealtToChampions(
 							mList.get(j).getParticipants().get(i).getStats().getTotalDamageDealtToChampions());
 					suVO.setSpell1Id(c.spell(mList.get(j).getParticipants().get(i).getSpell1Id()));
 					suVO.setSpell2Id(c.spell(mList.get(j).getParticipants().get(i).getSpell2Id()));
 					suVO.setGameDuration(String.valueOf(mList.get(j).getGameDuration() / 60) + "ºÐ "
 							+ String.valueOf(mList.get(j).getGameDuration() % 60) + "ÃÊ");
+					suVO.setMinuteMinionsKilled(mList.get(j).getGameDuration());
 					arrayTitle.add(suVO);
 					break;
 				}
@@ -232,8 +258,6 @@ public class ApiLeagueInfo {
 		String apiKey = "&api_key=" + key;
 		MatchesVO matches = null;
 		try {
-			ObjectMapper om = new ObjectMapper();
-			HttpClient hc = HttpClientBuilder.create().build();
 			HttpGet hg = new HttpGet(url + id + endIndex + end + beginIndex + begin + apiKey);
 			HttpResponse hr = hc.execute(hg);
 			if (hr.getStatusLine().getStatusCode() == 200) {
@@ -258,8 +282,6 @@ public class ApiLeagueInfo {
 			String apiKey = "?api_key=" + key;
 			List<ChampionMasteryVO> listcmVO = null;
 			try {
-				ObjectMapper om = new ObjectMapper();
-				HttpClient hc = HttpClientBuilder.create().build();
 				HttpGet hg = new HttpGet(url + id + apiKey);
 				HttpResponse hr = hc.execute(hg);
 				if (hr.getStatusLine().getStatusCode() == 200) {
@@ -315,8 +337,6 @@ public class ApiLeagueInfo {
 		String apiKey = "?api_key=" + key;
 		SummonerVO sVO = null;
 		try {
-			ObjectMapper om = new ObjectMapper();
-			HttpClient hc = HttpClientBuilder.create().build();
 			HttpGet hg = new HttpGet(url + name + apiKey);
 			HttpResponse hr = hc.execute(hg);
 			if (hr.getStatusLine().getStatusCode() == 200) {

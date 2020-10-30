@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nagneo.mapper.ChampionMapper;
 import com.nagneo.vo.ChampionVO;
+import com.nagneo.vo.RuneVO;
 import com.nagneo.vo.SpellVO;
 
 @Service
@@ -15,6 +16,7 @@ public class ChampionServiceImpl implements ChampionService {
 	private ChampionMapper cM;
 	private ArrayList<ChampionVO> championList = null;
 	private ArrayList<SpellVO> spellList = null;
+	private ArrayList<RuneVO> runeList = null;
 
 	@Autowired
 	private SqlSession sqlsession;
@@ -31,6 +33,9 @@ public class ChampionServiceImpl implements ChampionService {
 		}
 		if (spellList == null) {
 			this.spellList = cM.allSpell();
+		}
+		if (runeList == null) {
+			this.runeList = cM.allRune();
 		}
 	}
 
@@ -53,7 +58,6 @@ public class ChampionServiceImpl implements ChampionService {
 		if (spellList == null) {
 			list();
 		}
-
 		for (SpellVO i : spellList) {
 			if (i.getKey() == id) {
 				return i;
@@ -68,5 +72,18 @@ public class ChampionServiceImpl implements ChampionService {
 			list();
 		}
 		return championList;
+	}
+
+	@Override
+	public RuneVO rune(int id) {
+		if (runeList == null) {
+			list();
+		}
+		for (RuneVO i : runeList) {
+			if (i.getKey() == id) {
+				return i;
+			}
+		}
+		return null;
 	}
 }

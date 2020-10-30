@@ -76,6 +76,26 @@ section img {
 	height: 200px;
 }
 
+span {
+	cursor: pointer;
+}
+
+.skill {
+	display: none;
+	position: absolute;
+	width: 282px;
+	left: 27%;
+	padding: 8px;
+	background: #303030;
+	color: #ffffff;
+	font-size: 15px;
+	padding: 8px;
+}
+
+span:hover+p.skill {
+	display: block;
+}
+
 footer {
 	width: 100%;
 	height: 50px;
@@ -84,15 +104,12 @@ footer {
 	letter-spacing: -1px;
 	font-size: 12px;
 }
-
-table tr td {
-	width: 250px;
-	height: 50px;
-}
 </style>
 <body>
 	<%
 		String champion = "https://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/";
+		String skill = "http://ddragon.leagueoflegends.com/cdn/10.22.1/img/spell/";
+		String passive = "http://ddragon.leagueoflegends.com/cdn/10.22.1/img/passive/";
 	%>
 	<header>
 		<a href="./"><img src="resources/image/logo.png"></a> <input
@@ -110,23 +127,67 @@ table tr td {
 	<section>
 		<table>
 			<tr>
-				<td height="50" colspan="10"></td>
+				<td height="50"></td>
 			</tr>
-			<c:forEach var="i" items="${cList }" varStatus="j">
-				<c:if test="${j.count % 10 == 1}">
-					<tr>
-				</c:if>
-				<td align="center" style="width: 100px; height: 40px; padding-top: 3px; padding-bottom: 3px; font-size: 13px;">
-					<img src="<%=champion %>${i.engid }.png"
-					style="width: 50px; height: 50px; margin-bottom: -5px"><br>
-					${i.korid }
-				</td>
-				<c:if test="${j.count % 10 == 0}">
-					</tr>
-				</c:if>
-			</c:forEach>
 			<tr>
-				<td height="30" colspan="10"></td>
+				<td>
+					<table border="1" cellspacing="0" cellpadding="0"
+						bordercolor="gray"
+						style="border-collapse: collapse; width: 800px;">
+						<tr>
+							<td rowspan="2" width="100"><img
+								src="<%=champion %>${cVO.engid }.png" border="1"
+								style="width: 100px; height: 100px; margin-bottom: -5px; border-color: black;"
+								title="${cVO.korid }"></td>
+							<td height="30" bgcolor="#303030"
+								style="font-size: 25px; padding-left: 5px; padding-bottom: 5px; letter-spacing: -5px; color: white;">${cVO.korid }<font
+								style="font-style: italic; font-size: 15px; letter-spacing: -1.5px;">
+									${cVO.engid }</font>
+							</td>
+						</tr>
+						<tr>
+							<td><span><img
+									src="<%=passive%>${cVO.engid }_Passive.png" border="1"
+									style="width: 50px; height: 50px; margin-top: 5px; margin-left: 5px; border-color: black;"
+									title="${cVO.korid } 패시브"></span>
+								<p class="skill">${cVO.korid }패시브</p> <span><img
+									src="<%=skill %>${cVO.engid }Q.png" border="1"
+									style="width: 50px; height: 50px; margin-top: 5px; margin-left: 5px; border-color: black;"
+									title="${cVO.korid } Q스킬"> </span>
+								<p class="skill">${cVO.korid }Q스킬</p> <span><img
+									src="<%=skill %>${cVO.engid }W.png" border="1"
+									style="width: 50px; height: 50px; margin-top: 5px; margin-left: 5px; border-color: black;"
+									title="${cVO.korid } W스킬"> </span>
+								<p class="skill">${cVO.korid }W스킬</p> <span><img
+									src="<%=skill %>${cVO.engid }E.png" border="1"
+									style="width: 50px; height: 50px; margin-top: 5px; margin-left: 5px; border-color: black;"
+									title="${cVO.korid } E스킬"> </span>
+								<p class="skill">${cVO.korid }E스킬</p> <span><img
+									src="<%=skill %>${cVO.engid }R.png" border="1"
+									style="width: 50px; height: 50px; margin-top: 5px; margin-left: 5px; border-color: black;"
+									title="${cVO.korid } R스킬"> </span>
+								<p class="skill">${cVO.korid }R스킬</p></td>
+						</tr>
+						<tr>
+							<td></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td height="30"></td>
+			</tr>
+			<tr>
+				<td>
+					<table border="1" cellspacing="0" cellpadding="0"
+						bordercolor="gray"
+						style="border-collapse: collapse; width: 800px;">
+						<tr><td></td></tr>
+						
+						
+						
+					</table>
+				</td>
 			</tr>
 		</table>
 	</section>

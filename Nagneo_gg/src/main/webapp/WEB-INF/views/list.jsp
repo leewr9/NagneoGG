@@ -140,7 +140,8 @@ footer {
 	String spell = "http://ddragon.leagueoflegends.com/cdn/10.22.1/img/spell/";
 	String profileicon = "http://ddragon.leagueoflegends.com/cdn/10.21.1/img/profileicon/";
 	String emblems = "resources/image/ranked-emblems/Emblem_";
-	String positions = "resources/image/ranked-positions/Position_";
+	String trim = "resources/image/ranked-trim/Trim_";
+	String mastery = "resources/image/most-mastery/Mastery_level";
 	int index = (Integer) request.getAttribute("index");
 %>
 <header>
@@ -163,9 +164,12 @@ footer {
 				<table border=1 cellspacing="0" cellpadding="0" bordercolor="black"
 					style="border-collapse: collapse">
 					<tr rowspan="4">
-						<td width="200"><img
-							src="<%=profileicon %>${sVO.profileIconId }.png"
-							style="width: 200px; height: 200px; margin-bottom: -5px"></td>
+						<td width="200"><div style="position: relative;">
+								<img src="<%=profileicon %>${sVO.profileIconId }.png"
+									style="width: 200px; height: 200px; margin-bottom: -5px">
+								<img src="<%=trim %>${sololVO.tier }.png"
+									style="position: absolute; left: -1px; top: 120px; width: 202px; height: 101px;">
+							</div></td>
 					</tr>
 					<tr>
 						<td height="50" bgcolor="#303030" align="center"
@@ -173,7 +177,10 @@ footer {
 								test="${sVO.name eq '　존재하지않는소환사'}">
 							존재하지 않는 소환사
 							</c:if> <c:if test="${sVO.name ne '　존재하지않는소환사'}">
-							${sVO.name } [ Lv. ${sVO.summonerLevel } ]</c:if></td>
+								<a href="search?name=${sVO.name }"
+									style="font-size: 18px; color: white;">${sVO.name } [ Lv.
+									${sVO.summonerLevel } ]</a>
+							</c:if></td>
 					</tr>
 				</table>
 			</td>
@@ -185,10 +192,16 @@ footer {
 						<tr>
 							<td width="50"><img
 								src="<%=champion %>${i.champion.engid }.png"
-								style="width: 50px; height: 50px; margin-bottom: -5px"></td>
-							<td width="150" align="center" bgcolor="#303030"
-								style="color: white;">레벨${i.championLevel }[ 숙련도
-								${i.championPoints } ]</td>
+								style="width: 50px; height: 50px; margin-bottom: -5px; cursor: pointer;"
+								onclick="location.href='./champion?key=${i.champion.key }'"
+								title="${i.champion.korid }"></td>
+							<td align="center" bgcolor="#303030"><img
+								src="<%=mastery %>${i.championLevel }.png"
+								style="width: 45px; height: 40px; margin-bottom: -5px"
+								title="레벨 ${i.championLevel }"></td>
+							<td width="200" bgcolor="#303030"
+								style="color: white; padding-left: 5px;">숙련도
+								${i.championPoints }</td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -253,8 +266,9 @@ footer {
 									<tr>
 										<td rowspan="2" style="padding-left: 6px;"><img
 											src="<%=champion %>${t.champion.engid}.png"
-											style="width: 125px; height: 125px; border-color: black;"
-											border="1"></td>
+											style="width: 125px; height: 125px; border-color: black; cursor: pointer;"
+											onclick="location.href='./champion?key=${t.champion.key }'"
+											border="1" title="${t.champion.korid }"></td>
 										<td width="195"
 											style="font-size: 15px; padding-left: 3px; letter-spacing: -1px; padding-bottom: -8px;"
 											align="left">${t.champion.korid}[Lv.${t.champLevel}]<br>
@@ -289,8 +303,9 @@ footer {
 												<tr>
 													<td width="30"><img
 														src="<%=champion %>${a.champion.engid }.png"
-														style="width: 25px; height: 25px; border-radius: 3px; border-color: black;"
-														border="1"></td>
+														style="width: 25px; height: 25px; border-radius: 3px; border-color: black; cursor: pointer;"
+														onclick="location.href='./champion?key=${a.champion.key }'"
+														border="1" title="${a.champion.korid }"></td>
 													<td align="left" style="padding-bottom: 10px;"><a
 														href="search?name=${m.participantIdentities[vs.index].player.summonerName}"
 														style="letter-spacing: -1px;">${m.participantIdentities[vs.index].player.summonerName}</a>
