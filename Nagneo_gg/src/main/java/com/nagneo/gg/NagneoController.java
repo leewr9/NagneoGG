@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.nagneo.api.ApiChampionInfo;
 import com.nagneo.api.ApiLeagueInfo;
 import com.nagneo.service.ChampionService;
 import com.nagneo.service.UserService;
 import com.nagneo.vo.ChampionMasteryVO;
+import com.nagneo.vo.ChampionVO;
 import com.nagneo.vo.LeagueEntryVO;
 import com.nagneo.vo.MatchVO;
 import com.nagneo.vo.SearchUserVO;
@@ -37,6 +39,10 @@ public class NagneoController {
 
 	@Autowired
 	private ChampionService c;
+	
+	@Autowired
+	private ApiChampionInfo ca;
+	
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -46,9 +52,15 @@ public class NagneoController {
 		if (request.getSession().getAttribute("login") == null) {
 			request.getSession().setAttribute("logChk", "·Î±×ÀÎ");
 		}
-//		champion.champion();
+		
 		return "index";
 	}
+	
+//	@RequestMapping(value = "/a", method = RequestMethod.GET)
+//	public String inx(Model model, HttpServletRequest request, HttpServletResponse response) {
+//		ca.search("Udyr");
+//		return "index";
+//	}
 
 	@RequestMapping(value = "reg", method = RequestMethod.GET)
 	public String register(Model model) {

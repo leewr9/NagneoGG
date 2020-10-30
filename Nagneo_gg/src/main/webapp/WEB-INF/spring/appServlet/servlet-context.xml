@@ -53,6 +53,10 @@
 	<beans:bean id="ApiLeagueInfo"
 		class="com.nagneo.api.ApiLeagueInfo">
 	</beans:bean>
+	
+	<beans:bean id="ApiChampionInfo"
+		class="com.nagneo.api.ApiChampionInfo">
+	</beans:bean>
 
 	<context:component-scan
 		base-package="com.nagneo.gg" />

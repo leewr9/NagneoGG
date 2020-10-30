@@ -1,34 +1,38 @@
-package com.nagneo.gg;
+package com.nagneo.api;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nagneo.mapper.ChampionMapper;
+import com.nagneo.service.ChampionService;
 import com.nagneo.vo.ChampionSkillVO;
 import com.nagneo.vo.ChampionSkinVO;
 import com.nagneo.vo.ChampionVO;
 import com.nagneo.vo.ChampionVersionVO;
+import com.nagneo.vo.RuneVO;
+import com.nagneo.vo.SpellVO;
 
-public class ha {
+public class ApiChampionInfo {
+	@Autowired
+	private ChampionService c;
+	
+//	public void champion(ArrayList<ChampionVO> champion) {
+//		for (ChampionVO i : champion) {
+//			search(i.getEngid());
+//		}
+//	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		search("Shen");
-
-	}
-
-	public static void search(String name) {
+	public void search(String name) {
 		String url = "http://ddragon.leagueoflegends.com/cdn/10.22.1/data/ko_KR/champion/" + name + ".json";
 		try {
 			ObjectMapper om = new ObjectMapper();
@@ -148,16 +152,22 @@ public class ha {
 				}
 				
 				skill.add(cslVO);
-				
-				for(ChampionSkillVO i : skill) {
-					System.out.println("스킬영어 "+i.getEngid());
-					System.out.println("스킬한글 "+i.getKorid());
-					System.out.println(i.getDescription());
-				}
+				System.out.println(c);
+//				for(ChampionSkillVO i : skill) {
+//					System.out.println("스킬영어 "+i.getEngid());
+//					System.out.println("스킬한글 "+i.getKorid());
+//					System.out.println(i.getDescription());
+//					System.out.println("인설1 : " + i);
+//					c.insert3(i);
+//				}
 				
 				for(ChampionSkinVO i: skin) {
 					System.out.println("스킨이름 "+i.getKorid());
+					c.insert2(i);
 				}
+				
+				c.insert1(cVO);
+				
 
 			}
 		} catch (Exception e) {
@@ -165,5 +175,4 @@ public class ha {
 		}
 
 	}
-
 }

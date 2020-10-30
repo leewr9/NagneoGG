@@ -166,14 +166,11 @@ public class ApiLeagueInfo {
 	}
 
 	public List<MatchVO> getMatchData(ArrayList<Long> list, int start) {
-		System.out.println(list.size());
-		System.out.println("start" + start);
 		String url = "https://kr.api.riotgames.com/lol/match/v4/matches/";
 		String apiKey = "?api_key=" + key;
 		try {
 			for (int i = start; i < list.size(); i++) {
 				HttpGet hg = new HttpGet(url + list.get(i) + apiKey);
-				System.out.println(list.get(i));
 				HttpResponse hr = hc.execute(hg);
 				MatchVO mVO = new MatchVO();
 				if (hr.getStatusLine().getStatusCode() == 200) {
@@ -215,7 +212,6 @@ public class ApiLeagueInfo {
 	}
 
 	public ArrayList<SearchUserVO> getTitleList(List<MatchVO> mList, String name, int start) {
-		System.out.println(mList.size());
 		String win = "Win";
 		for (int j = start; j < mList.size(); j++) {
 			for (int i = 0; i < mList.get(j).getParticipantIdentities().size(); i++) {

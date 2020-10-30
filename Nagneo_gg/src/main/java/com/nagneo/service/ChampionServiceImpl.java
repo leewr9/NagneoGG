@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nagneo.mapper.ChampionMapper;
+import com.nagneo.vo.ChampionSkillVO;
+import com.nagneo.vo.ChampionSkinVO;
 import com.nagneo.vo.ChampionVO;
 import com.nagneo.vo.RuneVO;
 import com.nagneo.vo.SpellVO;
@@ -85,5 +87,23 @@ public class ChampionServiceImpl implements ChampionService {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void insert1(ChampionVO cVO) {
+		init();
+		cM.insert1(cVO);
+	}
+
+	@Override
+	public void insert2(ChampionSkinVO csVO) {
+		init();
+		cM.insert2(csVO);
+	}
+
+	@Override
+	public void insert3(ChampionSkillVO cskVO) {
+		init();
+		cM.insert3(cskVO);
 	}
 }
