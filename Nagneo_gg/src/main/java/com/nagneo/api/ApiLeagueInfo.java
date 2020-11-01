@@ -37,7 +37,7 @@ public class ApiLeagueInfo {
 	@Autowired
 	private ChampionService c;
 
-	private String key = "RGAPI-70e6eec3-74f9-47c8-bc89-3781263c67a3";
+	private String key = "RGAPI-1c27b9d7-3cc3-42fa-a793-5604537cff41";
 	
 	public MatchVO getDetailMatch(int no) {
 		int cnt = 0;
@@ -359,5 +359,11 @@ public class ApiLeagueInfo {
 		this.arrayKey = new ArrayList<Long>();
 		this.mList = new ArrayList<MatchVO>();
 		this.arrayTitle = new ArrayList<SearchUserVO>();
+	}
+	
+	public void more(ArrayList<Long> arrayKey, List<MatchVO> mList, ArrayList<SearchUserVO> arrayTitle) {
+		this.arrayKey = arrayKey;
+		this.mList = mList;
+		this.arrayTitle = arrayTitle;
 	}
 }

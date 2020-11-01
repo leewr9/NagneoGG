@@ -15,6 +15,10 @@ public interface ChampionMapper {
 	
 	public ArrayList<RuneVO> allRune();
 	
+	public ArrayList<ChampionSkinVO> championSkin(ChampionVO cVO);
+	
+	public ArrayList<ChampionSkillVO> championSkill(ChampionVO cVO);
+	
 	public void insert1(ChampionVO cVO);
 	
 	public void insert2(ChampionSkinVO csVO);

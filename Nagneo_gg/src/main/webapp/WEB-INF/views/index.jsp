@@ -120,10 +120,12 @@ footer {
 								<td><a href="./"><img src="resources/image/search.png"></a></td>
 							</tr>
 							<tr>
-								<td><input type="text" name="name"
-									style="width: 420px; height: 22px;" placeholder="리그오브레전드 닉네임"><input
-									type="submit" value="검색"
-									style="border: none; width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer;"></td>
+								<td><input type="hidden" name="action" value="search"><input
+									type="text" name="name" style="width: 420px; height: 22px;"
+									placeholder="리그오브레전드 닉네임"><input type="submit"
+									value="검색"
+									style="border: none; width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer;">
+								</td>
 							</tr>
 							<tr>
 								<td align="center">최근 검색</td>
@@ -136,11 +138,11 @@ footer {
 								<hr>
 								<c:forEach var="i" items="${log }">
 									<td align="center"><img
-										src="http://ddragon.leagueoflegends.com/cdn/10.21.1/img/profileicon/${i.value }.png"
+										src="http://ddragon.leagueoflegends.com/cdn/10.22.1/img/profileicon/${i.value }.png"
 										style="width: 20px; height: 20px; border-radius: 3px; border-color: black;"
 										border="1"></td>
 									<td style="padding-bottom: 9px; padding-right: 5px;"
-										align="left"><a href="search?name=${i.key }">${i.key }</a></td>
+										align="left"><a href="search?name=${i.key }&action=search">${i.key }</a></td>
 								</c:forEach>
 							</tr>
 						</table></td>

@@ -3,6 +3,7 @@ package com.nagneo.gg;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -27,22 +28,22 @@ import com.nagneo.vo.LeagueEntryVO;
 import com.nagneo.vo.MatchVO;
 import com.nagneo.vo.SearchUserVO;
 import com.nagneo.vo.SummonerVO;
+import com.nagneo.vo.TotalListVO;
 import com.nagneo.vo.UserVO;
 
 @Controller
 public class NagneoController {
 	@Autowired
 	private ApiLeagueInfo league;
-	
+
 	@Autowired
 	private UserService u;
 
 	@Autowired
 	private ChampionService c;
-	
+
 	@Autowired
-	private ApiChampionInfo ca;
-	
+	private ApiChampionInfo champion;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -52,15 +53,21 @@ public class NagneoController {
 		if (request.getSession().getAttribute("login") == null) {
 			request.getSession().setAttribute("logChk", "로그인");
 		}
-		
+
 		return "index";
 	}
-	
-//	@RequestMapping(value = "/a", method = RequestMethod.GET)
-//	public String inx(Model model, HttpServletRequest request, HttpServletResponse response) {
-//		ca.search("Udyr");
-//		return "index";
-//	}
+
+	@RequestMapping(value = "championIn", method = RequestMethod.GET)
+	public String championIn(@RequestParam("name") String name) {
+		champion.search(name);
+		return "index";
+	}
+
+	@RequestMapping(value = "list", method = RequestMethod.GET)
+	public String list(Model model) {
+		model.addAttribute("action", "search");
+		return "list";
+	}
 
 	@RequestMapping(value = "reg", method = RequestMethod.GET)
 	public String register(Model model) {
@@ -72,13 +79,13 @@ public class NagneoController {
 	public String find(Model model) {
 		return "find";
 	}
-	
+
 	@RequestMapping(value = "board", method = RequestMethod.GET)
 	public String board(Model model) {
 		model.addAttribute("cList", c.allCohampion());
 		return "board";
 	}
-	
+
 	@RequestMapping(value = "champion", method = RequestMethod.GET)
 	public String info(@RequestParam("key") String key, Model model) {
 		model.addAttribute("cVO", c.champion(Integer.valueOf(key)));
@@ -86,26 +93,32 @@ public class NagneoController {
 	}
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public String detail(@RequestParam("no") String no,Model model) {
+	public String detail(@RequestParam("no") String no, Model model) {
 		MatchVO mVO = league.getDetailMatch(Integer.valueOf(no));
-		SearchUserVO suVO = league.getDetailTitle(Integer.valueOf(no));
 		model.addAttribute("mVO", mVO);
-		model.addAttribute("suVO", suVO);
 		return "detail";
 	}
 
-
 	@RequestMapping(value = "more", method = RequestMethod.GET)
 	public String more(@RequestParam("index") String index, HttpServletRequest request, HttpSession session) {
-		SummonerVO sVO = (SummonerVO) request.getSession().getAttribute("sVO");
+		HashMap<String, TotalListVO> saveList = (HashMap<String, TotalListVO>) request.getSession()
+				.getAttribute("saveList");
+		TotalListVO tlVO = (TotalListVO) request.getSession().getAttribute("tlVO");
+
+		SummonerVO sVO = tlVO.getsVO();
+		league.more(tlVO.getArrayKey(), tlVO.getmList(), tlVO.getArrayTitle());
+		
 		ArrayList<Long> arrayKey = league.getMatchesData(sVO.getAccountId(), String.valueOf(index),
 				String.valueOf(Integer.valueOf(index) - 5));
 		List<MatchVO> mList = league.getMatchData(arrayKey, Integer.valueOf(index) - 5);
 		ArrayList<SearchUserVO> arrayTitle = league.getTitleList(mList, sVO.getName(), Integer.valueOf(index) - 5);
+		tlVO.moreList(arrayKey, mList, arrayTitle);
 
-		session.setAttribute("mList", mList);
-		session.setAttribute("arrayTitle", arrayTitle);
-		request.setAttribute("index", arrayKey.size());
+		saveList.put(sVO.getName(), tlVO);
+		session.setAttribute("saveList", saveList);
+		session.setAttribute("tlVO", tlVO);
+		session.setAttribute("index", tlVO.getIndex());
+		request.setAttribute("action", "more");
 		return "list";
 	}
 
@@ -166,6 +179,12 @@ public class NagneoController {
 	@RequestMapping(value = "search", method = RequestMethod.GET)
 	public String apiSearch(@RequestParam("name") String name, HttpServletRequest request, HttpServletResponse response,
 			HttpSession session) {
+		HashMap<String, TotalListVO> saveList;
+		if (session.getAttribute("saveList") != null) {
+			saveList = (HashMap<String, TotalListVO>) request.getSession().getAttribute("saveList");
+		} else {
+			saveList = new HashMap<String, TotalListVO>();
+		}
 		SummonerVO sVO = league.getUserData(name);
 		ArrayList<LeagueEntryVO> arraylVO = league.getLeagueData(sVO.getId());
 		ArrayList<ChampionMasteryVO> arraycmVO = league.getMostData(sVO.getId());
@@ -174,6 +193,9 @@ public class NagneoController {
 		ArrayList<Long> arrayKey = league.getMatchesData(sVO.getAccountId(), String.valueOf(5), String.valueOf(0));
 		List<MatchVO> mList = league.getMatchData(arrayKey, 0);
 		ArrayList<SearchUserVO> arrayTitle = league.getTitleList(mList, sVO.getName(), 0);
+
+		TotalListVO tlVO = new TotalListVO(sVO, arraylVO, arraycmVO, arrayKey, mList, arrayTitle);
+		saveList.put(sVO.getName(), tlVO);
 		try {
 			if (!sVO.getName().equals("　존재하지않는소환사")) {
 				Cookie cookie = new Cookie(URLEncoder.encode(String.valueOf(request.getCookies().length + 1), "UTF-8"),
@@ -184,17 +206,10 @@ public class NagneoController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		session.setAttribute("sVO", sVO);
-		session.setAttribute("arraycmVO", arraycmVO);
-
-		session.setAttribute("mList", mList);
-		session.setAttribute("arrayTitle", arrayTitle);
-		session.setAttribute("arrayKey", arrayKey);
-
-		request.setAttribute("index", mList.size());
-		session.setAttribute("sololVO", arraylVO.get(0));
-		session.setAttribute("freelVO", arraylVO.get(1));
+		session.setAttribute("saveList", saveList);
+		session.setAttribute("tlVO", tlVO);
+		session.setAttribute("index", tlVO.getIndex());
+		request.setAttribute("action", "search");
 		return "list";
 	}
 

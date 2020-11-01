@@ -15,17 +15,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="allRune" resultType="com.nagneo.vo.RuneVO">
 		select * from nagneo_rune
 	</select>
-	
+
+	<select id="championSkill"
+		resultType="com.nagneo.vo.ChampionSkillVO"
+		parameterType="com.nagneo.vo.ChampionVO">
+		select * from nagneo_skill where key = #{key} order by
+		no asc
+	</select>
+
+	<select id="championSkin"
+		resultType="com.nagneo.vo.ChampionSkinVO"
+		parameterType="com.nagneo.vo.ChampionVO">
+		select * from nagneo_skin where key = #{key} order by
+		num asc
+	</select>
+
 	<insert id="insert1" parameterType="com.nagneo.vo.ChampionVO">
-		insert into nagneo_champion values (#{key}, #{engid}, #{korid}, #{title})
+		insert into nagneo_champion
+		values (#{key}, #{engid}, #{korid}, #{title})
 	</insert>
-	
-	<insert id="insert2" parameterType="com.nagneo.vo.ChampionSkinVO">
-		insert into nagneo_skin values (#{key}, #{num}, #{korid})
+
+	<insert id="insert2"
+		parameterType="com.nagneo.vo.ChampionSkinVO">
+		insert into nagneo_skin values (#{key}, #{num},
+		#{korid})
 	</insert>
-	
-	<insert id="insert3" parameterType="com.nagneo.vo.ChampionSkillVO">
-		insert into nagneo_skill values (#{no}, #{key}, #{engid}, #{korid}, #{description})
+
+	<insert id="insert3"
+		parameterType="com.nagneo.vo.ChampionSkillVO">
+		insert into nagneo_skill values (#{no}, #{key},
+		#{engid}, #{korid}, #{description})
 	</insert>
-	
+
 </mapper>

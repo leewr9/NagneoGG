@@ -97,7 +97,7 @@ table a {
 </style>
 <body>
 	<%
-		String champion = "https://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/";
+		String champion = "https://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/";
 	%>
 	<header>
 		<a href="./"><img src="resources/image/logo.png"></a> <input
@@ -108,7 +108,8 @@ table a {
 		<a href="./">소환사검색</a><a href="board">챔피언검색</a>
 		<form action="search" method="get" id="navSearch">
 			<input type="text" name="name" style="width: 210px; height: 22px;"
-				placeholder="리그오브레전드 닉네임"> <input type="submit" value="검색"
+				placeholder="리그오브레전드 닉네임"> <input type="hidden"
+				name="action" value="search"><input type="submit" value="검색"
 				style="width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;">
 		</form>
 	</nav>
@@ -121,9 +122,11 @@ table a {
 				<c:if test="${j.count % 10 == 1}">
 					<tr>
 				</c:if>
-				<td align="center" style="width: 100px; height: 40px; padding-top: 3px; padding-bottom: 3px; font-size: 13px;">
-					<a href="champion?key=${i.key }"><img src="<%=champion %>${i.engid }.png"
-					style="width: 50px; height: 50px; margin-bottom: -5px"></a></a><br>
+				<td align="center"
+					style="width: 100px; height: 40px; padding-top: 3px; padding-bottom: 3px; font-size: 13px;">
+					<a href="champion?key=${i.key }"><img
+						src="<%=champion %>${i.engid }.png"
+						style="width: 50px; height: 50px; margin-bottom: -5px"></a></a><br>
 					<a href="champion?key=${i.key }">${i.korid }</a>
 				</td>
 				<c:if test="${j.count % 10 == 0}">

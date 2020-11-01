@@ -114,9 +114,9 @@ hr {
 }
 </style>
 <%
-	String champion = "https://ddragon.leagueoflegends.com/cdn/10.21.1/img/champion/";
+	String champion = "https://ddragon.leagueoflegends.com/cdn/10.22.1/img/champion/";
 	String spell = "http://ddragon.leagueoflegends.com/cdn/10.22.1/img/spell/";
-	String profileicon = "http://ddragon.leagueoflegends.com/cdn/10.21.1/img/profileicon/";
+	String profileicon = "http://ddragon.leagueoflegends.com/cdn/10.22.1/img/profileicon/";
 	String item = "http://ddragon.leagueoflegends.com/cdn/10.22.1/img/item/";
 	String emblems = "resources/image/ranked-emblems/Emblem_";
 	String trim = "resources/image/ranked-trim/Trim_";
@@ -131,33 +131,35 @@ hr {
 <nav>
 	<a href="./">소환사검색</a><a href="board">챔피언검색</a>
 	<form action="search" method="get" id="navSearch">
-		<input type="text" name="name" style="width: 210px; height: 22px;"
-			placeholder="리그오브레전드 닉네임"> <input type="submit" value="검색"
-			style="width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;">
-	</form>
+			<input type="text" name="name" style="width: 210px; height: 22px;"
+				placeholder="리그오브레전드 닉네임"> <input type="hidden"
+				name="action" value="search"><input type="submit" value="검색"
+				style="width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;">
+		</form>
 </nav>
 <section>
-	<table style="table-layout: fixed;">
+	<table>
 		<tr>
 			<td rowspan="3" width="200">
 				<table border=1 cellspacing="0" cellpadding="0" bordercolor="black"
 					style="border-collapse: collapse">
 					<tr rowspan="4">
 						<td width="200"><div style="position: relative;">
-								<img src="<%=profileicon %>${sVO.profileIconId }.png"
+								<img src="<%=profileicon %>${tlVO.sVO.profileIconId }.png"
 									style="width: 200px; height: 200px; margin-bottom: -5px">
-								<img src="<%=trim %>${sololVO.tier }.png"
+								<img src="<%=trim %>${tlVO.sololVO.tier }.png"
 									style="position: absolute; left: -1px; top: 120px; width: 202px; height: 101px;">
 							</div></td>
 					</tr>
 					<tr>
-						<td height="50" bgcolor="#303030" align="center"><c:if
-								test="${sVO.name eq '　존재하지않는소환사'}">
+						<td height="50" bgcolor="#303030" align="center"
+							style="font-size: 18px; color: white;"><c:if
+								test="${tlVO.sVO.name eq '　존재하지않는소환사'}">
 							존재하지 않는 소환사
-							</c:if> <c:if test="${sVO.name ne '　존재하지않는소환사'}">
-								<a href="search?name=${sVO.name }"
-									style="font-size: 18px; color: white;">${sVO.name } [ Lv.
-									${sVO.summonerLevel } ]</a>
+							</c:if> <c:if test="${tlVO.sVO.name ne '　존재하지않는소환사'}">
+								<a href="search?name=${tlVO.sVO.name }&action=reset"
+									style="font-size: 18px; color: white;">${tlVO.sVO.name } [ Lv.
+									${tlVO.sVO.summonerLevel } ]</a>
 							</c:if></td>
 					</tr>
 				</table>
@@ -166,7 +168,7 @@ hr {
 			<td rowspan="3" width="200">
 				<table border=1 cellspacing="0" cellpadding="0" bordercolor="gray"
 					style="border-collapse: collapse">
-					<c:forEach var="i" items="${arraycmVO }">
+					<c:forEach var="i" items="${tlVO.arraycmVO }">
 						<tr>
 							<td width="50"><img
 								src="<%=champion %>${i.champion.engid }.png"
@@ -190,21 +192,21 @@ hr {
 					bordercolor="gray" style="border-collapse: collapse">
 					<tr>
 						<td width="100" height="100" align="center"><img
-							src="<%=emblems%>${sololVO.tier }.png"
+							src="<%=emblems%>${tlVO.sololVO.tier }.png"
 							style="width: 80px; height: 91px"></td>
-						<td width="300">&nbsp;${sololVO.queueType }<br>&nbsp;${sololVO.tier }
-							${sololVO.rank } ${sololVO.leaguePoints }포인트<br>&nbsp;${sololVO.wins }승
-							${sololVO.losses }패 [ 승률 ${sololVO.percentages }% ]<input
+						<td width="300">&nbsp;${tlVO.sololVO.queueType }<br>&nbsp;${tlVO.sololVO.tier }
+							${tlVO.sololVO.rank } ${tlVO.sololVO.leaguePoints }포인트<br>&nbsp;${tlVO.sololVO.wins }승
+							${tlVO.sololVO.losses }패 [ 승률 ${tlVO.sololVO.percentages }% ]<input
 							type="button" id="refresh" value="전적갱신"
-							onclick="location.href='search?name=${sVO.name }'"><br></td>
+							onclick="location.href='search?name=${tlVO.sVO.name }&action=reset'"><br></td>
 					</tr>
 					<tr>
 						<td height="100" align="center"><img
-							src="<%=emblems%>${freelVO.tier }.png"
+							src="<%=emblems%>${tlVO.freelVO.tier }.png"
 							style="width: 80px; height: 91px"></td>
-						<td>&nbsp;${freelVO.queueType }<br>&nbsp;${freelVO.tier }
-							${freelVO.rank } ${freelVO.leaguePoints }포인트<br>&nbsp;${freelVO.wins }승
-							${freelVO.losses }패 [ 승률 ${freelVO.percentages }% ]
+						<td>&nbsp;${tlVO.freelVO.queueType }<br>&nbsp;${tlVO.freelVO.tier }
+							${tlVO.freelVO.rank } ${tlVO.freelVO.leaguePoints }포인트<br>&nbsp;${tlVO.freelVO.wins }승
+							${tlVO.freelVO.losses }패 [ 승률 ${tlVO.freelVO.percentages }% ]
 						</td>
 					</tr>
 				</table></td>
@@ -252,7 +254,7 @@ hr {
 								<table>
 									<tr>
 										<td colspan="3" style="font-size: 18px;" align="center"><a
-											href="search?name=${mVO.participantIdentities[i].player.summonerName}"
+											href="search?name=${mVO.participantIdentities[i].player.summonerName}&action=search"
 											style="font-weight: bold; color: #303030; letter-spacing: -1px;">${mVO.participantIdentities[i].player.summonerName}
 												[ ${mVO.participantIdentities[i].player.lVO[0].tier}
 												${mVO.participantIdentities[i].player.lVO[0].rank} ]</a>
@@ -327,7 +329,7 @@ hr {
 								<table>
 									<tr>
 										<td colspan="3" style="font-size: 18px;" align="center"><a
-											href="#"
+											href="search?name=${mVO.participantIdentities[i + 5].player.summonerName}&action=search"
 											style="font-weight: bold; color: #303030; letter-spacing: -1px;">${mVO.participantIdentities[i + 5].player.summonerName}
 												[ ${mVO.participantIdentities[i + 5].player.lVO[0].tier}
 												${mVO.participantIdentities[i + 5].player.lVO[0].rank} ]</a>

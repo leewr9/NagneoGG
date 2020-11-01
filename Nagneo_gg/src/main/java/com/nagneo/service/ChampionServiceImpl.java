@@ -32,6 +32,10 @@ public class ChampionServiceImpl implements ChampionService {
 		init();
 		if (championList == null) {
 			this.championList = cM.allChampion();
+			for(ChampionVO i : championList) {
+				i.setSkill(cM.championSkill(i));
+				i.setSkin(cM.championSkin(i));
+			}
 		}
 		if (spellList == null) {
 			this.spellList = cM.allSpell();

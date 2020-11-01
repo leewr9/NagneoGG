@@ -47,16 +47,16 @@ public class ChampionVO {
 		return skin;
 	}
 
-	public void setSkin(ChampionSkinVO skin) {
-		this.skin.add(skin);
+	public void setSkin(ArrayList<ChampionSkinVO> skin) {
+		this.skin = skin;
+	}
+
+	public void setSkill(ArrayList<ChampionSkillVO> skill) {
+		this.skill = skill;
 	}
 
 	public ArrayList<ChampionSkillVO> getSkill() {
 		return skill;
-	}
-
-	public void setSkill(ChampionSkillVO skill) {
-		this.skill.add(skill);
 	}
 
 }
