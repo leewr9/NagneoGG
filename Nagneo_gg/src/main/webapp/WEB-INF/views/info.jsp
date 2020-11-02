@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>NAGNEO.GG</title>
+<title>NAGNEO.GG - 리그오브레전드 전적 검색</title>
 </head>
 <style>
 * {

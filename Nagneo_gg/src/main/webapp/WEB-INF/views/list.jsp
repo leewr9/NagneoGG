@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>NAGNEO.GG</title>
+<title>NAGNEO.GG - 리그오브레전드 전적 검색</title>
 </head>
 <style>
 * {
@@ -87,7 +87,7 @@ section img {
 	text-decoration: none;
 	cursor: pointer;
 	background-color: #303030;
-	border-radius: 5px 5px 5px 5px;
+	border-radius: 3px 3px 3px 3px;
 	float: right;
 	margin-right: 7px;
 	margin-top: 6px;
@@ -152,11 +152,11 @@ footer {
 <nav>
 	<a href="./">소환사검색</a><a href="board">챔피언검색</a>
 	<form action="search" method="get" id="navSearch">
-			<input type="text" name="name" style="width: 210px; height: 22px;"
-				placeholder="리그오브레전드 닉네임"> <input type="hidden"
-				name="action" value="search"><input type="submit" value="검색"
-				style="width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;">
-		</form>
+		<input type="text" name="name" style="width: 210px; height: 22px;"
+			placeholder="리그오브레전드 닉네임"> <input type="hidden" name="action"
+			value="search"><input type="submit" value="검색"
+			style="width: 70px; height: 28px; background-color: #303030; color: white; cursor: pointer; border: none;">
+	</form>
 </nav>
 <section>
 	<table>
@@ -178,9 +178,9 @@ footer {
 								test="${tlVO.sVO.name eq '　존재하지않는소환사'}">
 							존재하지 않는 소환사
 							</c:if> <c:if test="${tlVO.sVO.name ne '　존재하지않는소환사'}">
-								<a href="search?name=${tlVO.sVO.name }&action=reset"
-									style="font-size: 18px; color: white;">${tlVO.sVO.name } [ Lv.
-									${tlVO.sVO.summonerLevel } ]</a>
+								<a href="search?name=${tlVO.sVO.name }&action=search"
+									style="font-size: 18px; color: white;">${tlVO.sVO.name } [
+									Lv. ${tlVO.sVO.summonerLevel } ]</a>
 							</c:if></td>
 					</tr>
 				</table>
@@ -217,9 +217,11 @@ footer {
 							style="width: 80px; height: 91px"></td>
 						<td width="300">&nbsp;${tlVO.sololVO.queueType }<br>&nbsp;${tlVO.sololVO.tier }
 							${tlVO.sololVO.rank } ${tlVO.sololVO.leaguePoints }포인트<br>&nbsp;${tlVO.sololVO.wins }승
-							${tlVO.sololVO.losses }패 [ 승률 ${tlVO.sololVO.percentages }% ]<input
-							type="button" id="refresh" value="전적갱신"
-							onclick="location.href='search?name=${tlVO.sVO.name }&action=reset'"><br></td>
+							${tlVO.sololVO.losses }패 [ 승률 ${tlVO.sololVO.percentages }% ]<font
+							style="float: right; margin-right: 7px; margin-top: 5px; font-size: 12px;">${tlVO.lastSearch }</font><br>
+						<input type="button" id="refresh" value="전적갱신"
+							onclick="location.href='search?name=${tlVO.sVO.name }&action=reset'"
+							style="margin-bottom: 7px;"><br></td>
 					</tr>
 					<tr>
 						<td height="100" align="center"><img

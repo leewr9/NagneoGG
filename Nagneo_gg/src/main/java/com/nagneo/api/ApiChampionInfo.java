@@ -113,19 +113,25 @@ public class ApiChampionInfo {
 				cslVO.setKey(cVO.getKey());
 				cslVO.setNo(cnt);
 
-				for (Object i : passive.keySet()) {
-					if (i.equals("image")) {
-						lhm = (LinkedHashMap<String, Object>) passive.get(i);
-					} else if (i.equals("name")) {
-						cslVO.setKorid((String) passive.get(i));
-					} else if (i.equals("description")) {
-						cslVO.setDescription((String) passive.get(i));
+				if (name.equals("Udyr")) {
+					cslVO.setKorid("원숭이의 민첩성");
+					cslVO.setDescription("원숭이의 민첩성: 우디르가 태세를 변환하면 5초간 공격 속도가 10%, 이동 속도가 5만큼 증가합니다. (이 효과는 최대 3번 중첩됩니다.) 우디르의 레벨이 오를 때마다 태세 전환에 필요한 마나 소모량이 1씩 줄어듭니다. 우디르는 16레벨부터 6번째 스킬 레벨을 획득할 수 있습니다.");
+					cslVO.setEngid("Udyr_MonkeysAgility.png");
+				} else {
+					for (Object i : passive.keySet()) {
+						if (i.equals("image")) {
+							lhm = (LinkedHashMap<String, Object>) passive.get(i);
+						} else if (i.equals("name")) {
+							cslVO.setKorid((String) passive.get(i));
+						} else if (i.equals("description")) {
+							cslVO.setDescription((String) passive.get(i));
+						}
 					}
-				}
 
-				for (Object i : lhm.keySet()) {
-					if (i.equals("full")) {
-						cslVO.setEngid((String) lhm.get(i));
+					for (Object i : lhm.keySet()) {
+						if (i.equals("full")) {
+							cslVO.setEngid((String) lhm.get(i));
+						}
 					}
 				}
 

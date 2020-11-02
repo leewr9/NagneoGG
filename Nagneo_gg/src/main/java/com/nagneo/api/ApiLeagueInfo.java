@@ -37,7 +37,7 @@ public class ApiLeagueInfo {
 	@Autowired
 	private ChampionService c;
 
-	private String key = "RGAPI-1c27b9d7-3cc3-42fa-a793-5604537cff41";
+	private String key = "RGAPI-82210c7e-5285-46cd-b009-0a9836eb3408";
 	
 	public MatchVO getDetailMatch(int no) {
 		int cnt = 0;

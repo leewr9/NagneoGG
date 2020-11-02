@@ -1,6 +1,8 @@
 package com.nagneo.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TotalListVO {
@@ -13,6 +15,8 @@ public class TotalListVO {
 	private LeagueEntryVO sololVO;
 	private LeagueEntryVO freelVO;
 	private int index;
+	private String lastSearch;
+	private String time;
 
 	public TotalListVO(SummonerVO sVO, ArrayList<LeagueEntryVO> arraylVO, ArrayList<ChampionMasteryVO> arraycmVO,
 			ArrayList<Long> arrayKey, List<MatchVO> mList, ArrayList<SearchUserVO> arrayTitle) {
@@ -26,7 +30,7 @@ public class TotalListVO {
 		this.freelVO = this.arraylVO.get(1);
 		this.index = this.mList.size();
 	}
-	
+
 	public void moreList(ArrayList<Long> arrayKey, List<MatchVO> mList, ArrayList<SearchUserVO> arrayTitle) {
 		this.arrayKey = arrayKey;
 		this.mList = mList;
@@ -104,6 +108,36 @@ public class TotalListVO {
 
 	public void setIndex(int index) {
 		this.index = mList.size();
+	}
+	
+	public void reset() {
+		this.time = null;
+	}
+
+	public String getLastSearch() {
+		return lastSearch;
+	}
+	
+	public void setLastSearch() {
+		Date last = new Date();
+		SimpleDateFormat search = new SimpleDateFormat("HHmmss");
+
+		if (this.time == null) {
+			this.lastSearch = "0초 전 갱신";
+			this.time = search.format(last);
+		} else {
+			int h = Integer.valueOf(search.format(last).substring(0, 2)) - Integer.valueOf(time.substring(0, 2));
+			int m = Integer.valueOf(search.format(last).substring(2, 4)) - Integer.valueOf(time.substring(2, 4));
+			int s = Integer.valueOf(search.format(last).substring(4)) - Integer.valueOf(time.substring(4)); 
+			
+			if(h == 0 && m == 0) {
+				this.lastSearch = String.valueOf(s)+"초 전 갱신";
+			}else if(h == 0){
+				this.lastSearch = String.valueOf(m)+"분 전 갱신";
+			}else {
+				this.lastSearch = String.valueOf(h)+"시간 전 갱신";
+			}
+		}
 	}
 
 }

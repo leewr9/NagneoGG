@@ -30,10 +30,13 @@ public class ResetInterceptor extends HandlerInterceptorAdapter {
 		}
 		
 		if (request.getParameter("action").equals("reset")) {
+			saveList.get(request.getParameter("name")).reset();
+			saveList.get(request.getParameter("name")).setLastSearch();
 			return true;
 		} else if (saveList.get(request.getParameter("name")) != null) {
 			request.getSession().setAttribute("tlVO", saveList.get(request.getParameter("name")));
 			request.getSession().setAttribute("index", saveList.get(request.getParameter("name")).getIndex());
+			saveList.get(request.getParameter("name")).setLastSearch();
 			response.sendRedirect(request.getContextPath() + "/list");
 			return false;
 		} else {

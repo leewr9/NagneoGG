@@ -47,6 +47,7 @@ public class NagneoController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
+		c.list();
 		if (request.getSession().getAttribute("log") != null) {
 			model.addAttribute("log", request.getSession().getAttribute("log"));
 		}
@@ -59,6 +60,9 @@ public class NagneoController {
 
 	@RequestMapping(value = "championIn", method = RequestMethod.GET)
 	public String championIn(@RequestParam("name") String name) {
+//		for(ChampionVO i : c.allCohampion()) {
+//		champion.search(i.getEngid());
+//		}
 		champion.search(name);
 		return "index";
 	}
@@ -107,7 +111,7 @@ public class NagneoController {
 
 		SummonerVO sVO = tlVO.getsVO();
 		league.more(tlVO.getArrayKey(), tlVO.getmList(), tlVO.getArrayTitle());
-		
+
 		ArrayList<Long> arrayKey = league.getMatchesData(sVO.getAccountId(), String.valueOf(index),
 				String.valueOf(Integer.valueOf(index) - 5));
 		List<MatchVO> mList = league.getMatchData(arrayKey, Integer.valueOf(index) - 5);
@@ -195,6 +199,8 @@ public class NagneoController {
 		ArrayList<SearchUserVO> arrayTitle = league.getTitleList(mList, sVO.getName(), 0);
 
 		TotalListVO tlVO = new TotalListVO(sVO, arraylVO, arraycmVO, arrayKey, mList, arrayTitle);
+		tlVO.setLastSearch();
+		
 		saveList.put(sVO.getName(), tlVO);
 		try {
 			if (!sVO.getName().equals("　존재하지않는소환사")) {
