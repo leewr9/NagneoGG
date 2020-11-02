@@ -39,7 +39,7 @@ public class ApiLeagueInfo {
 
 	private String key = "RGAPI-82210c7e-5285-46cd-b009-0a9836eb3408";
 	
-	public MatchVO getDetailMatch(int no) {
+	public MatchVO getDetailMatch(int no, List<MatchVO> mList) {
 		int cnt = 0;
 		long max = 0;
 		mList.get(no).getTeams().get(0).setReset(0);

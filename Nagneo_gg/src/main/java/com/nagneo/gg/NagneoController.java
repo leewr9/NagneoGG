@@ -97,8 +97,9 @@ public class NagneoController {
 	}
 
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
-	public String detail(@RequestParam("no") String no, Model model) {
-		MatchVO mVO = league.getDetailMatch(Integer.valueOf(no));
+	public String detail(@RequestParam("no") String no, Model model, HttpServletRequest request) {
+		TotalListVO tlVO = (TotalListVO) request.getSession().getAttribute("tlVO");
+		MatchVO mVO = league.getDetailMatch(Integer.valueOf(no), tlVO.getmList());
 		model.addAttribute("mVO", mVO);
 		return "detail";
 	}
@@ -162,7 +163,7 @@ public class NagneoController {
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String loginForm(HttpSession session, Model model) {
 		if (session.getAttribute("login") != null) {
-			session.invalidate();
+			session.removeAttribute("login");
 			return "redirect:/";
 		}
 		model.addAttribute("id", "¾ÆÀÌµð");
@@ -197,7 +198,7 @@ public class NagneoController {
 		ArrayList<Long> arrayKey = league.getMatchesData(sVO.getAccountId(), String.valueOf(5), String.valueOf(0));
 		List<MatchVO> mList = league.getMatchData(arrayKey, 0);
 		ArrayList<SearchUserVO> arrayTitle = league.getTitleList(mList, sVO.getName(), 0);
-
+ 
 		TotalListVO tlVO = new TotalListVO(sVO, arraylVO, arraycmVO, arrayKey, mList, arrayTitle);
 		tlVO.setLastSearch();
 		
