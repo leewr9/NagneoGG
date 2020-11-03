@@ -1,0 +1,266 @@
+﻿create table nagneo_champion(
+key number primary key,
+engid varchar2(20) not null,
+korid varchar2(20) not null,
+title varchar2(50) not null);
+
+create table nagneo_skill(
+no number not null,
+key number not null,
+engid varchar2(50) not null,
+korid varchar2(100) not null,
+description varchar2(700) not null);
+
+create table nagneo_skin(
+key number not null,
+num number not null,
+korid varchar2(50) not null);
+
+create table champion(
+key number primary key,
+engid varchar2(20) not null,
+korid varchar2(20) not null);
+
+insert into champion values (266, 'Aatrox', '아트록스');
+insert into champion values (103, 'Ahri', '아리');
+insert into champion values (84, 'Akali', '아칼리');
+insert into champion values (12, 'Alistar', '알리스타');
+insert into champion values (32, 'Amumu', '아무무');
+insert into champion values (34, 'Anivia', '애니비아');
+insert into champion values (1, 'Annie', '애니');
+insert into champion values (523, 'Aphelios', '아펠리오스');
+insert into champion values (22, 'Ashe', '애쉬');
+insert into champion values (136, 'AurelionSol', '아우렐리온 솔');
+insert into champion values (268, 'Azir', '아지르');
+insert into champion values (432, 'Bard', '바드');
+insert into champion values (53, 'Blitzcrank', '블리츠크랭크');
+insert into champion values (63, 'Brand', '브랜드');
+insert into champion values (201, 'Braum', '브라움');
+insert into champion values (51, 'Caitlyn', '케이틀린');
+insert into champion values (164, 'Camille', '카밀');
+insert into champion values (69, 'Cassiopeia', '카시오페아');
+insert into champion values (31, 'Chogath', '초가스');
+insert into champion values (42, 'Corki', '코르키');
+insert into champion values (122, 'Darius', '다리우스');
+insert into champion values (131, 'Diana', '다이애나');
+insert into champion values (119, 'Draven', '드레이븐');
+insert into champion values (36, 'DrMundo', '문도박사');
+insert into champion values (245, 'Ekko', '에코');
+insert into champion values (60, 'Elise', '엘리스');
+insert into champion values (28, 'Evelynn', '이블린');
+insert into champion values (81, 'Ezreal', '이즈리얼');
+insert into champion values (9, 'Fiddlesticks', '피들스틱');
+insert into champion values (114, 'Fiora', '피오라');
+insert into champion values (105, 'Fizz', '피즈');
+insert into champion values (3, 'Galio', '갈리오');
+insert into champion values (41, 'Gangplank', '갱플랭크');
+insert into champion values (86, 'Garen', '가렌');
+insert into champion values (150, 'Gnar', '나르');
+insert into champion values (79, 'Gragas', '그라가스');
+insert into champion values (104, 'Graves', '그레이브즈');
+insert into champion values (120, 'Hecarim', '헤카림');
+insert into champion values (74, 'Heimerdinger', '하이머딩거');
+insert into champion values (420, 'Illaoi', '일라오이');
+insert into champion values (39, 'Irelia', '이렐리아');
+insert into champion values (427, 'Ivern', '아이번');
+insert into champion values (40, 'Janna', '잔나');
+insert into champion values (59, 'JarvanIV', '자르반 4세');
+insert into champion values (24, 'Jax', '잭스');
+insert into champion values (126, 'Jayce', '제이스');
+insert into champion values (202, 'Jhin', '진');
+insert into champion values (222, 'Jinx', '징크스');
+insert into champion values (145, 'Kaisa', '카이사');
+insert into champion values (429, 'Kalista', '칼리스타');
+insert into champion values (43, 'Karma', '카르마');
+insert into champion values (30, 'Karthus', '카서스');
+insert into champion values (38, 'Kassadin', '카사딘');
+insert into champion values (55, 'Katarina', '카타리나');
+insert into champion values (10, 'Kayle', '케일');
+insert into champion values (141, 'Kayn', '케인');
+insert into champion values (85, 'Kennen', '케넨');
+insert into champion values (121, 'Khazix', '카직스');
+insert into champion values (203, 'Kindred', '킨드레드');
+insert into champion values (240, 'Kled', '클레드');
+insert into champion values (96, 'KogMaw', '코그모');
+insert into champion values (7, 'Leblanc', '르블랑');
+insert into champion values (64, 'LeeSin', '리신');
+insert into champion values (89, 'Leona', '레오나');
+insert into champion values (876, 'Lillia', '릴리아');
+insert into champion values (127, 'Lissandra', '리산드라');
+insert into champion values (236, 'Lucian', '루시안');
+insert into champion values (117, 'Lulu', '룰루');
+insert into champion values (99, 'Lux', '럭스');
+insert into champion values (54, 'Malphite', '말파이트');
+insert into champion values(143, 'Zyra', '자이라');
+insert into champion values(142, 'Zoe', '조이');
+insert into champion values(26, 'Zilean', '질리언');
+insert into champion values(115, 'Ziggs', '직스');
+insert into champion values(238, 'Zed', '제드');
+insert into champion values(154, 'Zac', '자크');
+insert into champion values(350, 'Yuumi', '유미');
+insert into champion values(83, 'Yorick', '요릭');
+insert into champion values(777, 'Yone', '요네');
+insert into champion values(157, 'Yasuo', '야스오');
+insert into champion values(5, 'XinZhao', '신짜오');
+insert into champion values(101, 'Xerath', '제라스');
+insert into champion values(498, 'Xayah', '자야');
+insert into champion values(19, 'Warwick', '워익');
+insert into champion values(106, 'Volibear', '볼리베어');
+insert into champion values(8, 'Vladimir', '블라디미르');
+insert into champion values(112, 'Viktor', '빅토르');
+insert into champion values(254, 'Vi', '바이');
+insert into champion values(161, 'Velkoz', '벨코즈');
+insert into champion values(45, 'Veigar', '베이가');
+insert into champion values(67, 'Vayne', '베인');
+insert into champion values(110, 'Varus', '바루스');
+insert into champion values(6, 'Urgot', '우르곳');
+insert into champion values(77, 'Udyr', '우디르');
+insert into champion values(29, 'Twitch', '트위치');
+insert into champion values(4, 'TwistedFate', '트위스티드 페이트');
+insert into champion values(23, 'Tryndamere', '트린다미어');
+insert into champion values(48, 'Trundle', '트런들');
+insert into champion values(18, 'Tristana', '트리스타나');
+insert into champion values(412, 'Thresh', '쓰레쉬');
+insert into champion values(17, 'Teemo', '티모');
+insert into champion values(44, 'Taric', '타릭');
+insert into champion values(91, 'Talon', '탈론');
+insert into champion values(163, 'Taliyah', '탈리야');
+insert into champion values(223, 'TahmKench', '탐켄치');
+insert into champion values(134, 'Syndra', '신드라');
+insert into champion values(517, 'Sylas', '사일러스');
+insert into champion values(50, 'Swain', '스웨인');
+insert into champion values(16, 'Soraka', '소라카');
+insert into champion values(37, 'Sona', '소나');
+insert into champion values(72, 'Skarner', '스카너');
+insert into champion values(15, 'Sivir', '시비르');
+insert into champion values(14, 'Sion', '사이온');
+insert into champion values(27, 'Singed', '신지드');
+insert into champion values(102, 'Shyvana', '쉬바나');
+insert into champion values(98, 'Shen', '쉔');
+insert into champion values(35, 'Shaco', '샤코');
+insert into champion values(875, 'Sett', '세트');
+insert into champion values(235, 'Senna', '세나');
+insert into champion values(113, 'Sejuani', '세주아니');
+insert into champion values(360, 'Samira', '사미라');
+insert into champion values(13, 'Ryze', '라이즈');
+insert into champion values(68, 'Rumble', '럼블');
+insert into champion values(92, 'Riven', '리븐');
+insert into champion values(107, 'Rengar', '렝가');
+insert into champion values(58, 'Renekton', '레넥톤');
+insert into champion values(421, 'RekSai', '렉사이');
+insert into champion values(33, 'Rammus', '람머스');
+insert into champion values(497, 'Rakan', '라칸');
+insert into champion values(133, 'Quinn', '퀸');
+insert into champion values(246, 'Qiyana', '키아나');
+insert into champion values(555, 'Pyke', '파이크');
+insert into champion values(78, 'Poppy', '뽀삐');
+insert into champion values(80, 'Pantheon', '판테온');
+insert into champion values(516, 'Ornn', '오른');
+insert into champion values(61, 'Orianna', '오리아나');
+insert into champion values(2, 'Olaf', '올라프');
+insert into champion values(20, 'Nunu', '누누와 윌럼프');
+insert into champion values(56, 'Nocturne', '녹턴');
+insert into champion values(76, 'Nidalee', '니달리');
+insert into champion values(518, 'Neeko', '니코');
+insert into champion values(111, 'Nautilus', '노틸러스');
+insert into champion values(75, 'Nasus', '나서스');
+insert into champion values(267, 'Nami', '나미');
+insert into champion values(25, 'Morgana', '모르가나');
+insert into champion values(82, 'Mordekaiser', '모데카이저');
+insert into champion values(62, 'MonkeyKing', '오공');
+insert into champion values(21, 'MissFortune', '미스포츈');
+insert into champion values(11, 'MasterYi', '마스터이');
+insert into champion values(57, 'Maokai', '마오카이');
+insert into champion values(90, 'Malzahar', '말자하');
+
+create table nagneo_spell(
+key number primary key,
+engid varchar2(30));
+
+insert into nagneo_spell values(21, 'SummonerBarrier');
+insert into nagneo_spell values(1, 'SummonerBoost');
+insert into nagneo_spell values(14, 'SummonerDot');
+insert into nagneo_spell values(3, 'SummonerExhaust');
+insert into nagneo_spell values(4, 'SummonerFlash');
+insert into nagneo_spell values(6, 'SummonerHaste');
+insert into nagneo_spell values(7, 'SummonerHeal');
+insert into nagneo_spell values(13, 'SummonerMana');
+insert into nagneo_spell values(30, 'SummonerPoroRecall');
+insert into nagneo_spell values(31, 'SummonerPoroThrow');
+insert into nagneo_spell values(11, 'SummonerSmite');
+insert into nagneo_spell values(39, 'SummonerSnowURFSnowball_Mark');
+insert into nagneo_spell values(32, 'SummonerSnowball');
+insert into nagneo_spell values(12, 'SummonerTeleport');
+
+create table nagneo_rune(
+key number primary key,
+engid varchar2(60) unique);
+ 
+insert into nagneo_rune values (8100, '7200_Domination');
+insert into nagneo_rune values (8112, 'Domination/Electrocute/Electrocute');
+insert into nagneo_rune values (8124, 'Domination/Predator/Predator');
+insert into nagneo_rune values (8128, 'Domination/DarkHarvest/DarkHarvest');
+insert into nagneo_rune values (9923, 'Domination/HailOfBlades/HailOfBlades');
+insert into nagneo_rune values (8126, 'Domination/CheapShot/CheapShot');
+insert into nagneo_rune values (8139, 'Domination/TasteOfBlood/GreenTerror_TasteOfBlood');
+insert into nagneo_rune values (8143, 'Domination/SuddenImpact/SuddenImpact');
+insert into nagneo_rune values (8136, 'Domination/ZombieWard/ZombieWard');
+insert into nagneo_rune values (8120, 'Domination/GhostPoro/GhostPoro');
+insert into nagneo_rune values (8138, 'Domination/EyeballCollection/EyeballCollection');
+insert into nagneo_rune values (8135, 'Domination/RavenousHunter/RavenousHunter');
+insert into nagneo_rune values (8134, 'Domination/IngeniousHunter/IngeniousHunter');
+insert into nagneo_rune values (8105, 'Domination/RelentlessHunter/RelentlessHunter');
+insert into nagneo_rune values (8106, 'Domination/UltimateHunter/UltimateHunter');
+insert into nagneo_rune values (8300, '7203_Whimsy');
+insert into nagneo_rune values (8351, 'Inspiration/GlacialAugment/GlacialAugment');
+insert into nagneo_rune values (8360, 'Inspiration/UnsealedSpellbook/UnsealedSpellbook');
+insert into nagneo_rune values (8358, 'Inspiration/MasterKey/MasterKey');
+insert into nagneo_rune values (8306, 'Inspiration/HextechFlashtraption/HextechFlashtraption');
+insert into nagneo_rune values (8304, 'Inspiration/MagicalFootwear/MagicalFootwear');
+insert into nagneo_rune values (8313, 'Inspiration/PerfectTiming/PerfectTiming');
+insert into nagneo_rune values (8321, 'Inspiration/FuturesMarket/FuturesMarket');
+insert into nagneo_rune values (8316, 'Inspiration/MinionDematerializer/MinionDematerializer');
+insert into nagneo_rune values (8345, 'Inspiration/BiscuitDelivery/BiscuitDelivery');
+insert into nagneo_rune values (8347, 'Inspiration/CosmicInsight/CosmicInsight');
+insert into nagneo_rune values (8410, 'Resolve/ApproachVelocity/ApproachVelocity');
+insert into nagneo_rune values (8352, 'Inspiration/TimeWarpTonic/TimeWarpTonic');
+insert into nagneo_rune values (8000, '7201_Precision');
+insert into nagneo_rune values (8005, 'Precision/PressTheAttack/PressTheAttack');
+insert into nagneo_rune values (8008, 'Precision/LethalTempo/LethalTempoTemp');
+insert into nagneo_rune values (8021, 'Precision/FleetFootwork/FleetFootwork');
+insert into nagneo_rune values (8010, 'Precision/Conqueror/Conqueror');
+insert into nagneo_rune values (9101, 'Precision/Overheal');
+insert into nagneo_rune values (9111, 'Precision/Triumph');
+insert into nagneo_rune values (8009, 'Precision/PresenceOfMind/PresenceOfMind');
+insert into nagneo_rune values (9104, 'Precision/LegendAlacrity/LegendAlacrity');
+insert into nagneo_rune values (9105, 'Precision/LegendTenacity/LegendTenacity');
+insert into nagneo_rune values (9103, 'Precision/LegendBloodline/LegendBloodline');
+insert into nagneo_rune values (8014, 'Precision/CoupDeGrace/CoupDeGrace');
+insert into nagneo_rune values (8017, 'Precision/CutDown/CutDown');
+insert into nagneo_rune values (8299, 'Sorcery/LastStand/LastStand');
+insert into nagneo_rune values (8400, '7204_Resolve');
+insert into nagneo_rune values (8437, 'Resolve/GraspOfTheUndying/GraspOfTheUndying');
+insert into nagneo_rune values (8439, 'Resolve/VeteranAftershock/VeteranAftershock');
+insert into nagneo_rune values (8465, 'Resolve/Guardian/Guardian');
+insert into nagneo_rune values (8446, 'Resolve/Demolish/Demolish');
+insert into nagneo_rune values (8463, 'Resolve/FontOfLife/FontOfLife');
+insert into nagneo_rune values (8401, 'Resolve/MirrorShell/MirrorShell');
+insert into nagneo_rune values (8429, 'Resolve/Conditioning/Conditioning');
+insert into nagneo_rune values (8444, 'Resolve/SecondWind/SecondWind');
+insert into nagneo_rune values (8473, 'Resolve/BonePlating/BonePlating');
+insert into nagneo_rune values (8451, 'Resolve/Overgrowth/Overgrowth');
+insert into nagneo_rune values (8453, 'Resolve/Revitalize/Revitalize');
+insert into nagneo_rune values (8242, 'Sorcery/Unflinching/Unflinching');
+insert into nagneo_rune values (8200, '7202_Sorcery');
+insert into nagneo_rune values (8214, 'Sorcery/SummonAery/SummonAery');
+insert into nagneo_rune values (8229, 'Sorcery/ArcaneComet/ArcaneComet');
+insert into nagneo_rune values (8230, 'Sorcery/PhaseRush/PhaseRush');
+insert into nagneo_rune values (8224, 'Sorcery/NullifyingOrb/Pokeshield');
+insert into nagneo_rune values (8226, 'Sorcery/ManaflowBand/ManaflowBand');
+insert into nagneo_rune values (8275, 'Sorcery/NimbusCloak/6361');
+insert into nagneo_rune values (8210, 'Sorcery/Transcendence/Transcendence');
+insert into nagneo_rune values (8234, 'Sorcery/Celerity/CelerityTemp');
+insert into nagneo_rune values (8233, 'Sorcery/AbsoluteFocus/AbsoluteFocus');
+insert into nagneo_rune values (8237, 'Sorcery/Scorch/Scorch');
+insert into nagneo_rune values (8232, 'Sorcery/Waterwalking/Waterwalking');
+insert into nagneo_rune values (8236, 'Sorcery/GatheringStorm/GatheringStorm');
